@@ -20,8 +20,14 @@ external dependencies — the engine is plain Python.
    This calibrates the Precision Level (CS/DC/AE/VA/TC factor model), picks the
    compute type, and meta-prompts the expert panel for the detected domain.
 
-2. **Gate on precision.** If **PL3+**, enter plan mode (read-only explore → plan
-   document → approval via ExitPlanMode) before doing the work. If PL1–2, proceed.
+2. **Interactive config gate (ALWAYS — this is the point of USF).** Do **not**
+   execute yet. Present the proposed configuration to the user as an *adjustable
+   gate* via `AskUserQuestion`, offering the knobs: **precision** (PL1–5),
+   **compute type** (sequential/parallel/swarm/hivemind/pipeline/tournament/
+   critic_loop/ensemble), **panel size**, **domain override**, or **"run as-is"**.
+   Re-run the planner with their choices (`--precision`, `--compute`, `--domain`)
+   and show the updated config. Only execute once they approve. If the approved
+   PL is **3+**, run the work inside plan mode (ExitPlanMode approval) too.
 
 3. **Execute the pipeline** the plan prints:
    `DETECT → CALIBRATE → META-PROMPT → ELABORATE → VERIFY → RENDER`

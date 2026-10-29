@@ -55,13 +55,18 @@ def main() -> int:
             f"  chains     : {', '.join(p.verification_chains)}  |  agents: {p.total_agents}",
             "  pipeline   : " + " → ".join(s["name"] for s in p.pipeline),
         ]
+        lines.append(
+            "  ACTION: INTERACTIVE CONFIG GATE (default). Do NOT execute yet. Present "
+            "the configuration above to the user as an adjustable gate via "
+            "AskUserQuestion — offer the knobs: precision (PL1–5), compute type "
+            f"({'/'.join(__import__('usf').COMPUTE_TYPES)}), panel size, domain "
+            "override, or 'run as-is'. Apply their choices, then execute the pipeline "
+            "(spawn the panel, draft → Attack-Fix-Verify → verify via the chains, "
+            "render in the codified grammar).")
         if p.precision_level >= 3:
             lines.append(
-                "  ACTION: PL3+ — enter PLAN MODE (read-only explore → plan doc → "
-                "approval gate via ExitPlanMode) before executing. Apply the panel "
-                "and verification chains above; render output in the codified grammar.")
-        else:
-            lines.append("  ACTION: PL1–2 — proceed directly with the configuration above.")
+                "  Because PL3+, run the approved configuration inside PLAN MODE "
+                "(read-only explore → plan doc → ExitPlanMode approval) before executing.")
         print("\n".join(lines))
         return 0
     except Exception:
