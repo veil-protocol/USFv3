@@ -126,7 +126,7 @@ class VampirizePipeline:
                 target.record_provenance(prov)
                 self.accepted_provenance.append(prov)
                 cur = self.lin.current() or {"version_id":
-                    self.lin.genesis("8.0.0", self.reg.scope_hash(), self._stamp())}
+                    self.lin.genesis("3.0.0", self.reg.scope_hash(), self._stamp())}
                 self.lin.create(cur["version_id"], self.reg.scope_hash(), self._stamp(),
                                 "vampirize", proposal.description,
                                 {"pattern": pat.pattern_id, "source": source.url})
@@ -146,7 +146,7 @@ if __name__ == "__main__":
     reg = build_default_registry()
     reg.register(verification.as_module())
     lin = VersionLineage()
-    lin.genesis("8.0.0", reg.scope_hash(), "20261029000000")
+    lin.genesis("3.0.0", reg.scope_hash(), "20261029000000")
     pipe = VampirizePipeline(reg, lin, phase=3)
 
     # A fictional external framework to cannibalize.

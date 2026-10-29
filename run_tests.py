@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-USF 8.0 REBORN — self-test / CI gate.
+USF v3 REBORN — self-test / CI gate.
 
 Validates every registered module and asserts the framework's own invariants,
 including the one that matters most: bounded self-improvement converges within
@@ -54,7 +54,7 @@ check("canonical cycle log = paper (49/20)", (tot_f, tot_i) == (49, 20), f"{tot_
 # 3. Bounded convergence: within constant scope, defects fall to a fixed point.
 reg2 = full_registry()
 lin = VersionLineage()
-lin.genesis("8.0.0", reg2.scope_hash(), "20261029000000")
+lin.genesis("3.0.0", reg2.scope_hash(), "20261029000000")
 oracle = OracleMeta(reg2, lin, phase=3)
 scope_before = reg2.scope_hash()
 backlog = [Finding("MAL-ADVERSARIAL", "plan.planner", "MEDIUM", f"d{i}") for i in range(12)]
@@ -86,7 +86,7 @@ check("efficiency reduces >1x (not truncation)", stats.ratio > 1.0, f"{stats.rat
 
 # --- report ---
 print("=" * 70)
-print("  USF 8.0 REBORN — SELF-TEST")
+print("  USF v3 REBORN — SELF-TEST")
 print("=" * 70)
 passed = 0
 for name, ok, detail in results:

@@ -70,7 +70,7 @@ def live(fix_capacity: int = 5) -> None:
     reg = build_default_registry()
     reg.register(verification.as_module())
     lin = VersionLineage()
-    lin.genesis("8.0.0", reg.scope_hash(), "20261029000000")
+    lin.genesis("3.0.0", reg.scope_hash(), "20261029000000")
     oracle = OracleMeta(reg, lin, phase=3)   # exception-based autonomy
 
     backlog = _issues(12, "MEDIUM")          # latent defects, fixed scope

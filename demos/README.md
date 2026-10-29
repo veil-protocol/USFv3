@@ -1,4 +1,4 @@
-# USF 8.0 — Demos
+# USF v3 — Demos
 
 ```bash
 python3 demos/run_all.py        # the full tour (from repo root)

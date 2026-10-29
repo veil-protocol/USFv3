@@ -1,5 +1,5 @@
 """
-USF 8.0 REBORN — Precision Calibrator
+USF v3 REBORN — Precision Calibrator
 =====================================
 
 The auto-config brain of the forge. Turns a task (any domain) into a

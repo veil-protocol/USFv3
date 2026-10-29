@@ -1,4 +1,4 @@
-# USF 8.0 — Module Architecture
+# USF v3 — Module Architecture
 
 The one abstraction that makes USF a platform instead of a script.
 

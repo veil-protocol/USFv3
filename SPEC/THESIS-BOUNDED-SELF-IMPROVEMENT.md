@@ -1,4 +1,4 @@
-# USF 8.0 — The Thesis, Running
+# USF v3 — The Thesis, Running
 
 > The published paper **"Bounded Self-Improvement in AI Reasoning — The USF
 > Framework"** is the *why*. This repository is *it actually runs*.
@@ -16,7 +16,7 @@ The paper names its own weakness: a **"formal verification gap"** — the
 convergence is empirical, not proven, and whether it generalizes "remains an open
 question."
 
-## How USF 8.0 answers both
+## How USF v3 answers both
 
 **The verification gap → made operational.** The fixed point is no longer an
 observation in a PDF; it is a quantity the running system tracks.
@@ -44,7 +44,7 @@ silently. That asymmetry is the whole safety story.
 ## Why this is the product worth being proud of
 
 Prior USF versions were ~80% specification, ~20% wired — a beautiful idea that
-never quite ran. USF 8.0's commitment is the inverse: **specification that
+never quite ran. USF v3's commitment is the inverse: **specification that
 runs.** The calibrator that was specced five times and never coded now exists and
 self-tests. The efficiency layer that reported 1.0× now reduces 4.74×. The
 plan-mode hook that was only ever a design document now fires. And the paper's

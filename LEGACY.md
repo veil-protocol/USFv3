@@ -1,13 +1,13 @@
-# Legacy repositories — superseded by USF 8.0 REBORN
+# Legacy repositories — superseded by USF v3 REBORN
 
 USF development had fragmented across five separate repositories with divergent
-version numbers. USF 8.0 REBORN consolidates all of them into this one. The
+version numbers. USF v3 REBORN consolidates all of them into this one. The
 others are archived; nothing unique was lost (every canonical asset was carried
 forward into `engine/`, `SPEC/`, or `templates/`).
 
 | Repo | Was | Status |
 |---|---|---|
-| `veil-protocol/usf` (this repo) | public 4.1.1 spec + the paper | **canonical — now 8.0 REBORN** |
+| `veil-protocol/usf` (this repo) | public 4.1.1 spec + the paper | **canonical — now v3 REBORN** |
 | `veil-protocol/usf-2-prod` | the 6.9 heavy engine (~100K LOC) | archived — engine wiring harvested |
 | `veil-protocol/usf-7` | the 7.0 build (reverted) | archived — tested patterns cherry-picked |
 | `veil-protocol/USF-2` | an early 2.0 clean rebuild | archived — ancestor |

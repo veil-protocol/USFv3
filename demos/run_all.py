@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-USF 8.0 REBORN — demo runner.
+USF v3 REBORN — demo runner.
 
 One script that exercises the whole forge:
   1. BREADTH   — the same planner routes 5 different domains (the gallery receipts)
@@ -51,7 +51,7 @@ def vampirize_demo() -> None:
     reg = build_default_registry()
     reg.register(verification.as_module())
     lin = VersionLineage()
-    lin.genesis("8.0.0", reg.scope_hash(), "20261029000000")
+    lin.genesis("3.0.0", reg.scope_hash(), "20261029000000")
     pipe = VampirizePipeline(reg, lin, phase=3)
     src = ExternalSource(
         name="SuperClaude-Framework", kind="repo",
@@ -78,5 +78,5 @@ if __name__ == "__main__":
     redteam_cycle.live()
     vampirize_demo()
     print("\n" + "=" * 78)
-    print("  USF 8.0 REBORN — forge demonstrated end to end.")
+    print("  USF v3 REBORN — forge demonstrated end to end.")
     print("=" * 78)

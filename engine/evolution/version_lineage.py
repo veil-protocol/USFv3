@@ -129,7 +129,7 @@ class VersionLineage:
 
 if __name__ == "__main__":
     lin = VersionLineage()
-    g = lin.genesis("8.0.0", "scope-abc", "20261029000000")
+    g = lin.genesis("3.0.0", "scope-abc", "20261029000000")
     v1 = lin.create(g, "scope-abc", "20261029000100", "MAL-QUALITY",
                     "retune calibrator", {"param": "cs_weight", "from": 1, "to": 2})
     # a bad version that degrades quality by 7% → auto-rollback fires.

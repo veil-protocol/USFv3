@@ -1,5 +1,5 @@
 """
-USF 8.0 REBORN — Module Architecture
+USF v3 REBORN — Module Architecture
 ====================================
 
 The backbone. Every aspect of USF is a Module with a uniform contract, so that
@@ -238,7 +238,7 @@ def build_default_registry() -> ModuleRegistry:
         ]
 
     reg.register(Module.wrap(
-        id="precision.calibrator", version="8.0.0",
+        id="precision.calibrator", version="3.0.0",
         summary="CS/DC/AE/VA/TC factor model -> Precision Level.",
         run=lambda task, **kw: cal.calibrate(task, **kw),
         capabilities={"precision.calibrate", "domain.detect"},
@@ -257,7 +257,7 @@ def build_default_registry() -> ModuleRegistry:
         ]
 
     reg.register(Module.wrap(
-        id="plan.planner", version="8.0.0",
+        id="plan.planner", version="3.0.0",
         summary="Vision -> configured, staged execution plan.",
         run=lambda task, **kw: planner.plan(task, **kw),
         capabilities={"plan.generate", "compute.select", "panel.synthesize"},

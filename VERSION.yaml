@@ -1,10 +1,11 @@
 # USF Version Definition — single source of truth.
 version:
-  major: 8
+  major: 3
   minor: 0
   patch: 0
-  full: "8.0.0"
+  full: "3.0.0"
   codename: "REBORN"
+  public_name: "USF v3"
 
 release:
   date: "2026-10-29"
@@ -15,27 +16,30 @@ identity:
   one_line: "A universal product-forge: a vision in any domain goes in; a fully fleshed-out product comes out."
   thesis: "Bounded self-improvement — a well-structured reasoning methodology that converges to a stable fixed point as long as its capability scope stays constant."
 
+# USF v3 is a GENERATION, not a semver step down. Public history ran:
+#   gen 1  — early prototype framework
+#   gen 2  — the 4.x specification framework (the paper's 4.1.1 reference release + USF-2)
+#   gen 3  — THIS: the reborn, consolidated, actually-running platform
+# Internal development between the gen-2 public release and gen 3 reached 6.9
+# (a hardened spine) and a 7.0 build that was abandoned (broken wiring + security
+# regressions + entanglement with a pentest engine). v3 is the consolidation of
+# all of it, with every feature either wired or honestly cut.
 lineage:
-  # The PUBLIC identity (github.com/veil-protocol/usf + the published paper) is 4.1.1.
-  # Internal development reached 6.9 (hardened spine) and a 7.0 build that was
-  # abandoned (broken wiring + security regressions + pentest entanglement).
-  # 8.0 REBORN is the consolidation: the published spec, made to actually RUN.
-  public_predecessor: "USF 4.1.1 (SKYNET-HARDENED)"   # the paper's reference release
-  internal_high_water: "USF 6.9 OMEGA (hardened spine) / 7.0 (reverted)"
+  generation: 3
+  public_predecessor: "USF 4.1.1 (SKYNET-HARDENED) — gen-2 reference release + the paper"
+  internal_high_water: "USF 6.9 (hardened spine) / 7.0 (reverted)"
   evolution_type: "consolidation + wiring"
-  bridge: "4.1.1 (paper) -> [5.x PROMETHEUS/TITAN/FORGE, 6.x wiring, 7.0 patterns] -> 8.0 REBORN"
-  reclaims: "the aspirational 'v8.0 ASCENSION' name — this is the real one, and it runs."
+  bridge: "gen-2 (4.x spec + paper) -> [internal 5.x/6.x/7.0] -> gen-3 USF v3 (reborn, running)"
 
 principle:
-  # The one finding that defines this release.
   observation: "Every prior USF was ~80% specification, ~20% wired."
   commitment: "Specification that runs: consolidate, WIRE, honest-scope. Every feature is either connected or honestly cut."
 
 scope_excluded:
   - "OMEGA pentest engine (attack MCP tools, OODA/genetic/C2, TERROR-NEXUS) — a separate solution."
-  - "ENGINE-15 Distributed Context (theoretical, WONTFIX)."
-  - "ENGINE-16..20 ASCENSION (aspirational benchmark names, no code)."
+  - "Distributed-context sharding (theoretical, WONTFIX)."
+  - "The aspirational 'ASCENSION' benchmark targets (names only, no code)."
 
 compatibility:
-  minimum_version: "4.0.0"
-  recommended_version: "8.0.0"
+  supersedes: ["usf-2-prod", "usf-7", "USF-2"]
+  not_related: ["omega-v6 (separate pentest product)"]

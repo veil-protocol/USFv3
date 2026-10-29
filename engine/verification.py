@@ -1,5 +1,5 @@
 """
-USF 8.0 REBORN — Verification Module
+USF v3 REBORN — Verification Module
 ====================================
 
 Dependency-aware, Sybil-hardened consensus over independent verification chains.
@@ -254,7 +254,7 @@ def as_module():
         ]
 
     return Module.wrap(
-        id="verify.chains", version="8.0.0",
+        id="verify.chains", version="3.0.0",
         summary="Dependency-aware, Sybil-hardened blind-vote consensus over chains A–I.",
         run=lambda votes, pl, **kw: verify(votes, pl, **kw),
         capabilities={"verify.chains", "verify.consensus"},

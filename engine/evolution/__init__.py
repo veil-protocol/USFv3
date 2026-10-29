@@ -1,1 +1,1 @@
-"""USF 8.0 REBORN — bounded self-evolution engine."""
+"""USF v3 REBORN — bounded self-evolution engine."""

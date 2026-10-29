@@ -1,4 +1,4 @@
-# USF 8.0 — Template Gallery
+# USF v3 — Template Gallery
 
 The gallery is the **breadth receipts**: the same forge pipeline, pointed at
 different domains, each producing a finished product. Security is one exhibit,

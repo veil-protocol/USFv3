@@ -1,4 +1,4 @@
-# USF 8.0 — Vampirize Protocol
+# USF v3 — Vampirize Protocol
 
 How USF absorbs outside repos, research, and content — safely.
 

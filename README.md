@@ -1,4 +1,4 @@
-<h1 align="center">USF 8.0 — REBORN</h1>
+<h1 align="center">USF v3 — REBORN</h1>
 <p align="center"><strong>Unified Superintelligence Framework</strong></p>
 <p align="center"><em>A universal product-forge: a vision in any domain goes in — a fully fleshed-out product comes out.</em></p>
 
@@ -27,7 +27,7 @@ possesses **discoverable fixed points under self-analysis — provided its
 capability scope stays constant.** Improvement converges to stability instead of
 diverging. Expanding capability resets the equilibrium (the "cycle-4 spike":
 adding 47 patterns from 8 sources at once re-opened attack surface and findings
-jumped 5 → 14). So in USF 8.0, **capability scope is an explicit, versioned,
+jumped 5 → 14). So in USF v3, **capability scope is an explicit, versioned,
 human-gated boundary** — the safety lever that makes self-improvement bounded.
 
 ## The pipeline (the heart)
@@ -86,7 +86,7 @@ Magic keywords steer precision inline: `ultrathink` → PL5, `think` → PL2, `e
 This is a **consolidation + wiring** release. The defining finding of the audit
 was that every prior USF was ~80% specification and ~20% wired (efficiency
 reported 0×, the calibrator was never coded, the template dir was empty, the
-plan-mode hooks never existed). 8.0's commitment is the inverse: **specification
+plan-mode hooks never existed). v3's commitment is the inverse: **specification
 that runs** — every feature is either connected or honestly cut.
 
 All components are built, wired, and pass the self-test gate (`run_tests.py`,
@@ -107,9 +107,11 @@ are kept under `engine/_harvested/` for provenance.
 
 ## Lineage
 
-Public identity (this repo + the paper) is **4.1.1 SKYNET-HARDENED**. Internal
-work reached 6.9 (hardened spine) and a 7.0 build that was abandoned. **8.0 REBORN
-reclaims the aspirational "ASCENSION" name — and, unlike it, runs.** OMEGA (the
-pentest engine) is a separate solution and is deliberately excluded.
+**USF v3** is the third *generation*: gen-1 prototype → gen-2 the 4.x
+specification framework (the paper's **4.1.1 SKYNET-HARDENED** release) → **gen-3
+"REBORN" — this repo, the consolidation made to run.** Internal work between
+gen-2 and gen-3 reached 6.9 (a hardened spine) and a 7.0 build that was abandoned;
+v3 consolidates it. See `SPEC/LINEAGE.md`. OMEGA (the pentest engine) is a
+separate solution, excluded by design.
 
 MIT licensed.

@@ -1,5 +1,5 @@
 """
-USF 8.0 REBORN — engine package.
+USF v3 REBORN — engine package.
 
 The wired, zero-dependency product. Core modules are importable flat (the way
 the CLI and the plan-mode hook use them):
@@ -16,4 +16,4 @@ Reference implementations harvested from prior versions (not on the wired path)
 live under `_harvested/`.
 """
 
-__version__ = "8.0.0"
+__version__ = "3.0.0"

@@ -1,10 +1,10 @@
 ---
 name: usf
-description: Run a vision through the USF 8.0 forge — configurable, staged, verified, multi-expert execution that turns a goal in any domain into a fully fleshed-out product. Use when the user says "use usf", invokes /usf, or wants USF's planning/execution applied.
+description: Run a vision through the USF v3 forge — configurable, staged, verified, multi-expert execution that turns a goal in any domain into a fully fleshed-out product. Use when the user says "use usf", invokes /usf, or wants USF's planning/execution applied.
 argument-hint: <the vision / goal, any domain>
 ---
 
-# USF 8.0 — forge a vision into a product
+# USF v3 — forge a vision into a product
 
 USF is a universal product-forge: a vision in any domain → a fully fleshed-out
 product, via meta-prompting + staged, verified, multi-expert execution. Zero

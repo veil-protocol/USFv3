@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-USF 8.0 REBORN — Planner
+USF v3 REBORN — Planner
 ========================
 
 The front door of the forge. Turns a vision (any domain) into a configured,
@@ -271,7 +271,7 @@ def plan(task: str,
 def render_human(p: Plan) -> str:
     bar = "═" * 72
     lines = [
-        bar, "  USF 8.0 REBORN · EXECUTION PLAN", bar,
+        bar, "  USF v3 REBORN · EXECUTION PLAN", bar,
         f"  vision        : {p.task[:60]}",
         f"  domain        : {p.domain}  ({domain_family(p.domain)})",
         f"  precision     : PL{p.precision_level}  [{p.precision_label}]  → {p.confidence_target:.1%} target",
@@ -297,7 +297,7 @@ def render_human(p: Plan) -> str:
 
 def render_interface() -> str:
     bar = "═" * 72
-    out = [bar, "  USF 8.0 REBORN · CONTROL PANEL  (every knob is parsed + shown)", bar]
+    out = [bar, "  USF v3 REBORN · CONTROL PANEL  (every knob is parsed + shown)", bar]
 
     out += ["", "  EXECUTION PROFILES  (--profile)"]
     for name, desc in PROFILES.items():
@@ -345,7 +345,7 @@ def render_interface() -> str:
 # --------------------------------------------------------------------------
 
 def main(argv: list[str] | None = None) -> int:
-    ap = argparse.ArgumentParser(prog="usf", description="USF 8.0 REBORN planner")
+    ap = argparse.ArgumentParser(prog="usf", description="USF v3 REBORN planner")
     ap.add_argument("task", nargs="?", help="the vision / goal, any domain")
     ap.add_argument("--precision", type=int, choices=[1, 2, 3, 4, 5], help="override precision level (PL)")
     ap.add_argument("--compute", choices=list(COMPUTE_TYPES), help="override compute type")

@@ -140,7 +140,7 @@ class OracleMeta:
                 except (KeyError, PermissionError, NotImplementedError):
                     newver = "n/a"
                 cur = self.lin.current() or {"version_id": self.lin.genesis(
-                    "8.0.0", self.reg.scope_hash(), self._stamp())}
+                    "3.0.0", self.reg.scope_hash(), self._stamp())}
                 self.lin.create(cur["version_id"], self.reg.scope_hash(), self._stamp(),
                                 p.source_agent, p.description,
                                 {"module": p.target_module, "version": newver})
@@ -159,7 +159,7 @@ if __name__ == "__main__":
     reg = build_default_registry()
     reg.register(verification.as_module())
     lin = VersionLineage()
-    lin.genesis("8.0.0", reg.scope_hash(), "20261029000000")
+    lin.genesis("3.0.0", reg.scope_hash(), "20261029000000")
     oracle = OracleMeta(reg, lin, phase=2)
 
     print("MAL agents:", len(MAL_AGENTS))

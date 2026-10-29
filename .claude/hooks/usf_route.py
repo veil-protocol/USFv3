@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-USF 8.0 REBORN — UserPromptSubmit router hook.
+USF v3 REBORN — UserPromptSubmit router hook.
 
 The glue that was designed in every prior version and never wired. When a prompt
 opts into USF — "use usf", "usf:", or a magic keyword (ultrathink/think/eco) —
@@ -46,7 +46,7 @@ def main() -> int:
         p = planner.plan(task)
 
         lines = [
-            "[USF 8.0 ROUTER] This prompt opted into USF. Suggested configuration:",
+            "[USF v3 ROUTER] This prompt opted into USF. Suggested configuration:",
             f"  vision     : {task[:70]}",
             f"  domain     : {p.domain}",
             f"  precision  : PL{p.precision_level} ({p.precision_label}) → {p.confidence_target:.0%} target",

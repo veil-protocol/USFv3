@@ -1,4 +1,4 @@
-# USF 8.0 — Codified Output Grammar
+# USF v3 — Codified Output Grammar
 
 One grammar, unifying conventions that were scattered across prior versions
 (7.0 structured markers + the role-tag persona format from `CONTEXT-OPTIMIZATION`

@@ -173,7 +173,7 @@ def as_module():
         ]
 
     return Module.wrap(
-        id="efficiency.codex", version="8.0.0",
+        id="efficiency.codex", version="3.0.0",
         summary="Codified-output grammar + tiered/deduped context assembly.",
         run=lambda chunks, budget: assemble_context(chunks, budget),
         capabilities={"output.codify", "context.tier", "context.dedup"},
