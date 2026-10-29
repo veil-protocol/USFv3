@@ -22,12 +22,15 @@ external dependencies — the engine is plain Python.
 
 2. **Interactive config gate (ALWAYS — this is the point of USF).** Do **not**
    execute yet. Present the proposed configuration to the user as an *adjustable
-   gate* via `AskUserQuestion`, offering the knobs: **precision** (PL1–5),
+   gate* via `AskUserQuestion`, offering **all** the knobs: **precision** (PL1–5),
    **compute type** (sequential/parallel/swarm/hivemind/pipeline/tournament/
-   critic_loop/ensemble), **panel size**, **domain override**, or **"run as-is"**.
-   Re-run the planner with their choices (`--precision`, `--compute`, `--domain`)
-   and show the updated config. Only execute once they approve. If the approved
-   PL is **3+**, run the work inside plan mode (ExitPlanMode approval) too.
+   critic_loop/ensemble), **execution profile** (interactive/supervised/
+   autonomous/fire_and_forget), **model tier** (opus/sonnet/haiku), **panel size**,
+   **archetypes on/off**, **domain override**, or **"run as-is"**. Re-run the planner
+   with their choices (`--precision --compute --profile --model --domain
+   --no-archetypes`) and show the updated config. Only execute once they approve.
+   If the approved PL is **3+**, run the work inside plan mode (ExitPlanMode) too.
+   `usf.py --show-interface` prints the full menu of every option.
 
 3. **Execute the pipeline** the plan prints:
    `DETECT → CALIBRATE → META-PROMPT → ELABORATE → VERIFY → RENDER`

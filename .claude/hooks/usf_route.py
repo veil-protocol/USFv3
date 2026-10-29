@@ -51,18 +51,22 @@ def main() -> int:
             f"  domain     : {p.domain}",
             f"  precision  : PL{p.precision_level} ({p.precision_label}) → {p.confidence_target:.0%} target",
             f"  compute    : {p.compute_type} ({p.aggregation})",
-            f"  panel      : {', '.join(e['persona'] for e in p.expert_panel)}",
+            f"  profile    : {p.profile} ({p.profile_desc})",
+            f"  model      : {p.model}",
+            f"  panel      : {', '.join(e['persona'] for e in p.expert_panel) or '(disabled)'}",
             f"  chains     : {', '.join(p.verification_chains)}  |  agents: {p.total_agents}",
             "  pipeline   : " + " → ".join(s["name"] for s in p.pipeline),
         ]
+        _u = __import__('usf')
         lines.append(
             "  ACTION: INTERACTIVE CONFIG GATE (default). Do NOT execute yet. Present "
             "the configuration above to the user as an adjustable gate via "
-            "AskUserQuestion — offer the knobs: precision (PL1–5), compute type "
-            f"({'/'.join(__import__('usf').COMPUTE_TYPES)}), panel size, domain "
-            "override, or 'run as-is'. Apply their choices, then execute the pipeline "
-            "(spawn the panel, draft → Attack-Fix-Verify → verify via the chains, "
-            "render in the codified grammar).")
+            "AskUserQuestion — offer ALL the knobs: precision (PL1–5), compute type "
+            f"({'/'.join(_u.COMPUTE_TYPES)}), execution profile ({'/'.join(_u.PROFILES)}), "
+            f"model tier ({'/'.join(_u.MODEL_TIERS)}), panel size, archetypes on/off, "
+            "domain override, or 'run as-is'. Apply their choices (re-run the planner with "
+            "the flags), show the updated config, and execute only on approval — spawn the "
+            "panel, draft → Attack-Fix-Verify → verify via the chains, render codified.")
         if p.precision_level >= 3:
             lines.append(
                 "  Because PL3+, run the approved configuration inside PLAN MODE "
