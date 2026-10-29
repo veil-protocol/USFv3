@@ -1,46 +1,41 @@
-# USF Version Definition
-# This file is the single source of truth for version information
-
+# USF Version Definition — single source of truth.
 version:
-  major: 4
-  minor: 1
-  patch: 1
-  full: "4.1.1"
-  codename: "SKYNET-HARDENED"
+  major: 8
+  minor: 0
+  patch: 0
+  full: "8.0.0"
+  codename: "REBORN"
 
 release:
-  date: "2025-12-10"
-  status: "production"  # specification | alpha | beta | production
+  date: "2026-10-29"
+  status: "consolidation"   # specification | alpha | beta | production | consolidation
+
+identity:
+  name: "USF — Unified Superintelligence Framework"
+  one_line: "A universal product-forge: a vision in any domain goes in; a fully fleshed-out product comes out."
+  thesis: "Bounded self-improvement — a well-structured reasoning methodology that converges to a stable fixed point as long as its capability scope stays constant."
 
 lineage:
-  predecessor: "USF 4.1.0 (SKYNET)"
-  evolution_type: "hardening"
-  key_changes:
-    - "11-agent MAL coordination (5-phase model)"
-    - "Behavioral mode conflict resolution"
-    - "Think command user feedback"
-    - "Chain dependency management"
-    - "Pattern provenance tracking"
-    - "Consensus failure recovery"
-    - "Knowledge store specification"
+  # The PUBLIC identity (github.com/veil-protocol/usf + the published paper) is 4.1.1.
+  # Internal development reached 6.9 (hardened spine) and a 7.0 build that was
+  # abandoned (broken wiring + security regressions + pentest entanglement).
+  # 8.0 REBORN is the consolidation: the published spec, made to actually RUN.
+  public_predecessor: "USF 4.1.1 (SKYNET-HARDENED)"   # the paper's reference release
+  internal_high_water: "USF 6.9 OMEGA (hardened spine) / 7.0 (reverted)"
+  evolution_type: "consolidation + wiring"
+  bridge: "4.1.1 (paper) -> [5.x PROMETHEUS/TITAN/FORGE, 6.x wiring, 7.0 patterns] -> 8.0 REBORN"
+  reclaims: "the aspirational 'v8.0 ASCENSION' name — this is the real one, and it runs."
 
-  sources_integrated:
-    - "Anthropics Official"
-    - "SuperClaude_Framework"
-    - "VoltAgent/awesome-claude-code-subagents"
-    - "BeehiveInnovations/pal-mcp-server"
-    - "VoltAgent/ai-agent-platform"
-    - "VoltAgent/awesome-claude-skills"
-    - "hesreallyhim/awesome-claude-code"
-    - "Anthropic Best Practices"
+principle:
+  # The one finding that defines this release.
+  observation: "Every prior USF was ~80% specification, ~20% wired."
+  commitment: "Specification that runs: consolidate, WIRE, honest-scope. Every feature is either connected or honestly cut."
 
-  patterns_integrated: 47
-  red_team_cycles: 5
-  total_improvements: 20
+scope_excluded:
+  - "OMEGA pentest engine (attack MCP tools, OODA/genetic/C2, TERROR-NEXUS) — a separate solution."
+  - "ENGINE-15 Distributed Context (theoretical, WONTFIX)."
+  - "ENGINE-16..20 ASCENSION (aspirational benchmark names, no code)."
 
 compatibility:
   minimum_version: "4.0.0"
-  recommended_version: "4.1.1"
-
-# Reference this file in all specifications:
-# > **Version**: See VERSION.yaml
+  recommended_version: "8.0.0"

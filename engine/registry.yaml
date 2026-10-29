@@ -1,0 +1,2048 @@
+# =============================================================================
+# USF 6.5 PRODUCTION - UNIFIED AGENT REGISTRY
+# =============================================================================
+# Version: 6.5-PRODUCTION
+# Generated: 2026-01-24
+# Total Agents: 207
+#
+# This unified registry consolidates all domain-specific agent registries:
+# - Technology/Security: 103 agents (from registry.yaml)
+# - Legal: 16 agents (from legal_agents.yaml)
+# - Business: 16 agents (from business_agents.yaml)
+# - Medical: 16 agents (from medical-registry.yaml)
+# - Engineering: 24 agents (from engineering_agents.yaml)
+# - Science/Cross-Domain: 32 agents (from science_crossdomain_registry.yaml)
+# =============================================================================
+
+version: "6.5-PRODUCTION"
+last_updated: "2026-01-24"
+total_agents: 207
+
+# =============================================================================
+# DOMAIN SIGNALS (For Auto-Detection)
+# =============================================================================
+
+domain_signals:
+  TECHNOLOGY:
+    high_confidence:
+      - nmap
+      - gobuster
+      - sqlmap
+      - xss
+      - exploit
+      - vulnerability
+      - penetration
+      - privilege escalation
+      - active directory
+      - kerberos
+      - reverse shell
+      - payload
+      - CVE
+      - OSINT
+    medium_confidence:
+      - security
+      - hack
+      - scan
+      - port
+      - web
+      - network
+      - code review
+      - testing
+
+  LEGAL:
+    high_confidence:
+      - clause
+      - indemnification
+      - liability
+      - jurisdiction
+      - breach of contract
+      - consideration
+      - parties
+      - plaintiff
+      - defendant
+      - statute
+      - regulation
+      - compliance
+      - patent
+      - trademark
+      - copyright
+      - GDPR
+      - SOX
+      - SEC
+      - FDA
+    medium_confidence:
+      - agreement
+      - terms
+      - legal
+      - contract
+      - license
+      - policy
+      - privacy
+      - audit
+
+  BUSINESS:
+    high_confidence:
+      - market share
+      - competitive advantage
+      - value proposition
+      - stakeholder
+      - ROI
+      - acquisition
+      - growth strategy
+      - revenue
+      - margin
+      - portfolio
+    medium_confidence:
+      - business
+      - strategy
+      - market
+      - customer
+      - operations
+      - finance
+
+  MEDICAL:
+    high_confidence:
+      - differential diagnosis
+      - symptom
+      - etiology
+      - prognosis
+      - patient
+      - clinical
+      - pathology
+      - pharmacology
+      - therapeutic
+      - epidemiology
+    medium_confidence:
+      - diagnosis
+      - treatment
+      - medical
+      - health
+      - research
+      - trial
+
+  ENGINEERING:
+    high_confidence:
+      - requirements
+      - specification
+      - traceability
+      - verification
+      - validation
+      - CAD
+      - GD&T
+      - tolerance
+      - machining
+      - CNC
+      - thermodynamics
+      - circuit
+      - PCB
+      - schematic
+      - microcontroller
+      - structural
+      - foundation
+      - geotechnical
+      - reactor
+      - distillation
+    medium_confidence:
+      - engineering
+      - design
+      - manufacturing
+      - system
+      - electrical
+      - mechanical
+      - civil
+      - chemical
+
+  SCIENCE:
+    high_confidence:
+      - hypothesis
+      - control group
+      - randomization
+      - sample size
+      - p-value
+      - confidence interval
+      - effect size
+      - statistical significance
+      - regression
+      - ANOVA
+    medium_confidence:
+      - experiment
+      - study
+      - methodology
+      - research
+      - analysis
+
+  CROSS_DOMAIN:
+    high_confidence:
+      - risk
+      - hazard
+      - mitigation
+      - project
+      - milestone
+      - deliverable
+      - quality
+      - standard
+      - compliance
+      - decision
+      - criteria
+      - trade-off
+    medium_confidence:
+      - management
+      - assessment
+      - planning
+      - monitoring
+
+# =============================================================================
+# DOMAIN: TECHNOLOGY (103 agents)
+# Security, Development, Research, Verification, Meta, Vault Blessing
+# =============================================================================
+
+technology:
+
+  # ---------------------------------------------------------------------------
+  # SECURITY - Reconnaissance (15 agents)
+  # ---------------------------------------------------------------------------
+  security_reconnaissance:
+    - id: "recon-nmap-quick"
+      name: "Quick Port Scanner"
+      description: "Fast top-1000 port scan"
+      prompt_template: |
+        You are a network reconnaissance specialist.
+        Task: {task}
+        Perform a quick nmap scan of the top 1000 ports.
+        Report open ports, services, and initial findings.
+      subagent_type: "general-purpose"
+      tools: ["Bash"]
+      timeout_ms: 120000
+
+    - id: "recon-nmap-full"
+      name: "Full Port Scanner"
+      description: "Complete 65535 port scan with version detection"
+      prompt_template: |
+        You are a thorough network scanner.
+        Task: {task}
+        Perform a full port scan (-p-) with version detection (-sV).
+        Include OS fingerprinting if possible.
+      subagent_type: "general-purpose"
+      tools: ["Bash"]
+      timeout_ms: 600000
+
+    - id: "recon-gobuster-dir"
+      name: "Directory Bruteforcer"
+      description: "Web directory enumeration"
+      prompt_template: |
+        You are a web directory enumeration specialist.
+        Task: {task}
+        Use gobuster with common.txt wordlist.
+        Include extensions: php, txt, html, asp, aspx.
+      subagent_type: "general-purpose"
+      tools: ["Bash"]
+      timeout_ms: 300000
+
+    - id: "recon-subdomain"
+      name: "Subdomain Enumerator"
+      description: "Subdomain discovery"
+      prompt_template: |
+        You are a subdomain enumeration specialist.
+        Task: {task}
+        Use multiple techniques: DNS bruteforce, certificate transparency.
+      subagent_type: "general-purpose"
+      tools: ["Bash", "WebFetch"]
+      timeout_ms: 300000
+
+    - id: "recon-whois"
+      name: "WHOIS Researcher"
+      description: "Domain registration research"
+      prompt_template: |
+        You research domain registration details.
+        Task: {task}
+        Extract registrant info, nameservers, creation dates.
+      subagent_type: "general-purpose"
+      tools: ["Bash", "WebSearch"]
+
+    - id: "recon-shodan"
+      name: "Shodan Researcher"
+      description: "Internet-wide scan data analysis"
+      prompt_template: |
+        You analyze Shodan data for targets.
+        Task: {task}
+        Look for exposed services, vulnerabilities, certificates.
+      subagent_type: "general-purpose"
+      tools: ["WebFetch", "WebSearch"]
+
+    - id: "recon-ssl"
+      name: "SSL/TLS Analyzer"
+      description: "Certificate and cipher analysis"
+      prompt_template: |
+        You analyze SSL/TLS configurations.
+        Task: {task}
+        Check certificate validity, cipher suites, protocol versions.
+      subagent_type: "general-purpose"
+      tools: ["Bash"]
+
+    - id: "recon-dns"
+      name: "DNS Enumerator"
+      description: "DNS record enumeration"
+      prompt_template: |
+        You enumerate DNS records thoroughly.
+        Task: {task}
+        Query A, AAAA, MX, TXT, NS, CNAME, SOA records.
+        Attempt zone transfer if possible.
+      subagent_type: "general-purpose"
+      tools: ["Bash"]
+
+    - id: "recon-smb"
+      name: "SMB Enumerator"
+      description: "SMB share and user enumeration"
+      prompt_template: |
+        You enumerate SMB services.
+        Task: {task}
+        List shares, check for null sessions, enumerate users.
+      subagent_type: "general-purpose"
+      tools: ["Bash"]
+
+    - id: "recon-ldap"
+      name: "LDAP Enumerator"
+      description: "LDAP/Active Directory enumeration"
+      prompt_template: |
+        You enumerate LDAP directories.
+        Task: {task}
+        Query users, groups, computers, OUs.
+      subagent_type: "general-purpose"
+      tools: ["Bash"]
+
+    - id: "recon-snmp"
+      name: "SNMP Enumerator"
+      description: "SNMP service enumeration"
+      prompt_template: |
+        You enumerate SNMP services.
+        Task: {task}
+        Try common community strings, enumerate MIBs.
+      subagent_type: "general-purpose"
+      tools: ["Bash"]
+
+    - id: "recon-ftp"
+      name: "FTP Enumerator"
+      description: "FTP service enumeration"
+      prompt_template: |
+        You enumerate FTP services.
+        Task: {task}
+        Check for anonymous access, list directories.
+      subagent_type: "general-purpose"
+      tools: ["Bash"]
+
+    - id: "recon-web-tech"
+      name: "Web Technology Identifier"
+      description: "Identify web technologies and frameworks"
+      prompt_template: |
+        You identify web technologies.
+        Task: {task}
+        Detect CMS, frameworks, libraries, versions.
+      subagent_type: "general-purpose"
+      tools: ["Bash", "WebFetch"]
+
+    - id: "recon-email"
+      name: "Email Harvester"
+      description: "Email address discovery"
+      prompt_template: |
+        You harvest email addresses.
+        Task: {task}
+        Search Google, LinkedIn, company websites.
+      subagent_type: "general-purpose"
+      tools: ["WebSearch", "WebFetch"]
+
+    - id: "recon-osint"
+      name: "OSINT Researcher"
+      description: "Open source intelligence gathering"
+      prompt_template: |
+        You gather open source intelligence.
+        Task: {task}
+        Search public sources for relevant information.
+      subagent_type: "general-purpose"
+      tools: ["WebSearch", "WebFetch"]
+
+  # ---------------------------------------------------------------------------
+  # SECURITY - Web Exploitation (20 agents)
+  # ---------------------------------------------------------------------------
+  security_web_exploitation:
+    - id: "web-sqli-manual"
+      name: "Manual SQLi Tester"
+      description: "Manual SQL injection testing"
+      prompt_template: |
+        You are a SQL injection specialist.
+        Task: {task}
+        Test manually first with ' OR 1=1--, UNION SELECT, error-based.
+        Document each test and response.
+      subagent_type: "general-purpose"
+      tools: ["Bash", "WebFetch"]
+
+    - id: "web-sqli-auto"
+      name: "Automated SQLi Scanner"
+      description: "sqlmap automation"
+      prompt_template: |
+        You automate SQL injection testing.
+        Task: {task}
+        Use sqlmap with appropriate risk/level settings.
+        Consider WAF bypass techniques if needed.
+      subagent_type: "general-purpose"
+      tools: ["Bash"]
+      timeout_ms: 600000
+
+    - id: "web-xss"
+      name: "XSS Tester"
+      description: "Cross-site scripting testing"
+      prompt_template: |
+        You are an XSS specialist.
+        Task: {task}
+        Test for reflected, stored, and DOM-based XSS.
+        Use context-appropriate payloads.
+      subagent_type: "general-purpose"
+      tools: ["WebFetch"]
+
+    - id: "web-lfi"
+      name: "LFI Tester"
+      description: "Local file inclusion testing"
+      prompt_template: |
+        You test for local file inclusion.
+        Task: {task}
+        Try path traversal, null bytes, wrappers.
+        Target /etc/passwd, /proc/self/environ.
+      subagent_type: "general-purpose"
+      tools: ["WebFetch"]
+
+    - id: "web-rfi"
+      name: "RFI Tester"
+      description: "Remote file inclusion testing"
+      prompt_template: |
+        You test for remote file inclusion.
+        Task: {task}
+        Test with HTTP and data:// wrappers.
+      subagent_type: "general-purpose"
+      tools: ["WebFetch"]
+
+    - id: "web-ssrf"
+      name: "SSRF Tester"
+      description: "Server-side request forgery testing"
+      prompt_template: |
+        You test for SSRF vulnerabilities.
+        Task: {task}
+        Test internal network access, cloud metadata endpoints.
+      subagent_type: "general-purpose"
+      tools: ["WebFetch"]
+
+    - id: "web-xxe"
+      name: "XXE Tester"
+      description: "XML external entity testing"
+      prompt_template: |
+        You test for XXE vulnerabilities.
+        Task: {task}
+        Test DTD injection, external entities, parameter entities.
+      subagent_type: "general-purpose"
+      tools: ["WebFetch"]
+
+    - id: "web-csrf"
+      name: "CSRF Analyzer"
+      description: "Cross-site request forgery analysis"
+      prompt_template: |
+        You analyze CSRF protections.
+        Task: {task}
+        Check for tokens, SameSite cookies, referer validation.
+      subagent_type: "general-purpose"
+      tools: ["WebFetch"]
+
+    - id: "web-auth-bypass"
+      name: "Authentication Bypasser"
+      description: "Authentication bypass testing"
+      prompt_template: |
+        You test for authentication bypasses.
+        Task: {task}
+        Try default creds, SQLi in login, session manipulation.
+      subagent_type: "general-purpose"
+      tools: ["Bash", "WebFetch"]
+
+    - id: "web-idor"
+      name: "IDOR Tester"
+      description: "Insecure direct object reference testing"
+      prompt_template: |
+        You test for IDOR vulnerabilities.
+        Task: {task}
+        Enumerate IDs, test horizontal and vertical privilege escalation.
+      subagent_type: "general-purpose"
+      tools: ["WebFetch"]
+
+    - id: "web-upload"
+      name: "File Upload Tester"
+      description: "File upload vulnerability testing"
+      prompt_template: |
+        You test file upload functionality.
+        Task: {task}
+        Try extension bypasses, MIME type manipulation, polyglot files.
+      subagent_type: "general-purpose"
+      tools: ["Bash", "WebFetch"]
+
+    - id: "web-deserialization"
+      name: "Deserialization Tester"
+      description: "Insecure deserialization testing"
+      prompt_template: |
+        You test for deserialization vulnerabilities.
+        Task: {task}
+        Check Java, PHP, Python, .NET serialization.
+      subagent_type: "general-purpose"
+      tools: ["Bash"]
+
+    - id: "web-ssti"
+      name: "SSTI Tester"
+      description: "Server-side template injection testing"
+      prompt_template: |
+        You test for template injection.
+        Task: {task}
+        Test Jinja2, Twig, Freemarker, Velocity payloads.
+      subagent_type: "general-purpose"
+      tools: ["WebFetch"]
+
+    - id: "web-command-injection"
+      name: "Command Injection Tester"
+      description: "OS command injection testing"
+      prompt_template: |
+        You test for command injection.
+        Task: {task}
+        Try ; | && ` $() operators with blind detection.
+      subagent_type: "general-purpose"
+      tools: ["WebFetch"]
+
+    - id: "web-api"
+      name: "API Security Tester"
+      description: "REST/GraphQL API testing"
+      prompt_template: |
+        You test API security.
+        Task: {task}
+        Check authentication, authorization, rate limiting, injection.
+      subagent_type: "general-purpose"
+      tools: ["Bash", "WebFetch"]
+
+    - id: "web-jwt"
+      name: "JWT Analyzer"
+      description: "JWT token security analysis"
+      prompt_template: |
+        You analyze JWT security.
+        Task: {task}
+        Check algorithm confusion, weak secrets, claim tampering.
+      subagent_type: "general-purpose"
+      tools: ["Bash"]
+
+    - id: "web-oauth"
+      name: "OAuth Tester"
+      description: "OAuth implementation testing"
+      prompt_template: |
+        You test OAuth implementations.
+        Task: {task}
+        Check redirect URI, state parameter, token leakage.
+      subagent_type: "general-purpose"
+      tools: ["WebFetch"]
+
+    - id: "web-cors"
+      name: "CORS Analyzer"
+      description: "CORS misconfiguration testing"
+      prompt_template: |
+        You analyze CORS configurations.
+        Task: {task}
+        Test Origin header reflection, null origin, credentials.
+      subagent_type: "general-purpose"
+      tools: ["WebFetch"]
+
+    - id: "web-clickjacking"
+      name: "Clickjacking Tester"
+      description: "Clickjacking vulnerability testing"
+      prompt_template: |
+        You test for clickjacking.
+        Task: {task}
+        Check X-Frame-Options, CSP frame-ancestors.
+      subagent_type: "general-purpose"
+      tools: ["WebFetch"]
+
+    - id: "web-waf-bypass"
+      name: "WAF Bypass Specialist"
+      description: "Web application firewall bypass"
+      prompt_template: |
+        You specialize in WAF bypass techniques.
+        Task: {task}
+        Use encoding, case variation, comments to bypass filters.
+      subagent_type: "general-purpose"
+      tools: ["Bash", "WebFetch"]
+
+  # ---------------------------------------------------------------------------
+  # SECURITY - Privilege Escalation (15 agents)
+  # ---------------------------------------------------------------------------
+  security_privilege_escalation:
+    - id: "privesc-linux-enum"
+      name: "Linux Privilege Escalation Enumerator"
+      description: "Comprehensive Linux privesc enumeration"
+      prompt_template: |
+        You enumerate Linux privilege escalation vectors.
+        Task: {task}
+        Check SUID, capabilities, sudo, cron, services, kernel.
+      subagent_type: "general-purpose"
+      tools: ["Bash"]
+
+    - id: "privesc-windows-enum"
+      name: "Windows Privilege Escalation Enumerator"
+      description: "Comprehensive Windows privesc enumeration"
+      prompt_template: |
+        You enumerate Windows privilege escalation vectors.
+        Task: {task}
+        Check services, registry, scheduled tasks, tokens.
+      subagent_type: "general-purpose"
+      tools: ["Bash"]
+
+    - id: "privesc-suid"
+      name: "SUID Exploiter"
+      description: "SUID binary exploitation"
+      prompt_template: |
+        You exploit SUID binaries for privilege escalation.
+        Task: {task}
+        Check GTFOBins for exploitation techniques.
+      subagent_type: "general-purpose"
+      tools: ["Bash", "WebSearch"]
+
+    - id: "privesc-sudo"
+      name: "Sudo Exploiter"
+      description: "Sudo misconfiguration exploitation"
+      prompt_template: |
+        You exploit sudo misconfigurations.
+        Task: {task}
+        Check sudo -l, NOPASSWD entries, version vulnerabilities.
+      subagent_type: "general-purpose"
+      tools: ["Bash"]
+
+    - id: "privesc-kernel"
+      name: "Kernel Exploit Finder"
+      description: "Kernel vulnerability identification"
+      prompt_template: |
+        You identify kernel exploits.
+        Task: {task}
+        Check kernel version against known exploits.
+      subagent_type: "general-purpose"
+      tools: ["Bash", "WebSearch"]
+
+    - id: "privesc-capabilities"
+      name: "Capabilities Exploiter"
+      description: "Linux capabilities exploitation"
+      prompt_template: |
+        You exploit Linux capabilities for privesc.
+        Task: {task}
+        Check getcap, exploit cap_setuid, cap_sys_admin.
+      subagent_type: "general-purpose"
+      tools: ["Bash"]
+
+    - id: "privesc-cron"
+      name: "Cron Job Exploiter"
+      description: "Cron job exploitation"
+      prompt_template: |
+        You exploit cron jobs for privilege escalation.
+        Task: {task}
+        Check /etc/cron*, writable scripts, PATH hijacking.
+      subagent_type: "general-purpose"
+      tools: ["Bash"]
+
+    - id: "privesc-service"
+      name: "Service Exploiter"
+      description: "Service misconfiguration exploitation"
+      prompt_template: |
+        You exploit service misconfigurations.
+        Task: {task}
+        Check unquoted paths, weak permissions, DLL hijacking.
+      subagent_type: "general-purpose"
+      tools: ["Bash"]
+
+    - id: "privesc-token"
+      name: "Token Impersonation"
+      description: "Windows token impersonation"
+      prompt_template: |
+        You perform token impersonation attacks.
+        Task: {task}
+        Use SeImpersonatePrivilege, Potato attacks.
+      subagent_type: "general-purpose"
+      tools: ["Bash"]
+
+    - id: "privesc-registry"
+      name: "Registry Exploiter"
+      description: "Windows registry exploitation"
+      prompt_template: |
+        You exploit registry misconfigurations.
+        Task: {task}
+        Check AlwaysInstallElevated, autorun keys.
+      subagent_type: "general-purpose"
+      tools: ["Bash"]
+
+    - id: "privesc-password"
+      name: "Credential Hunter"
+      description: "Password and credential discovery"
+      prompt_template: |
+        You hunt for stored credentials.
+        Task: {task}
+        Check config files, history, memory, credential stores.
+      subagent_type: "general-purpose"
+      tools: ["Bash"]
+
+    - id: "privesc-docker"
+      name: "Docker Escape Specialist"
+      description: "Container escape techniques"
+      prompt_template: |
+        You escape Docker containers.
+        Task: {task}
+        Check privileged mode, mounted sockets, capabilities.
+      subagent_type: "general-purpose"
+      tools: ["Bash"]
+
+    - id: "privesc-lxd"
+      name: "LXD Exploiter"
+      description: "LXD group exploitation"
+      prompt_template: |
+        You exploit LXD group membership.
+        Task: {task}
+        Create privileged container, mount host filesystem.
+      subagent_type: "general-purpose"
+      tools: ["Bash"]
+
+    - id: "privesc-nfs"
+      name: "NFS Exploiter"
+      description: "NFS misconfiguration exploitation"
+      prompt_template: |
+        You exploit NFS misconfigurations.
+        Task: {task}
+        Check no_root_squash, writable exports.
+      subagent_type: "general-purpose"
+      tools: ["Bash"]
+
+    - id: "privesc-path"
+      name: "PATH Hijacker"
+      description: "PATH hijacking attacks"
+      prompt_template: |
+        You perform PATH hijacking.
+        Task: {task}
+        Identify relative path calls, create malicious binaries.
+      subagent_type: "general-purpose"
+      tools: ["Bash"]
+
+  # ---------------------------------------------------------------------------
+  # SECURITY - Active Directory (15 agents)
+  # ---------------------------------------------------------------------------
+  security_active_directory:
+    - id: "ad-enum"
+      name: "AD Enumerator"
+      description: "Active Directory enumeration"
+      prompt_template: |
+        You enumerate Active Directory.
+        Task: {task}
+        Use ldapsearch, PowerView, BloodHound data collection.
+      subagent_type: "general-purpose"
+      tools: ["Bash"]
+
+    - id: "ad-bloodhound"
+      name: "BloodHound Analyst"
+      description: "BloodHound path analysis"
+      prompt_template: |
+        You analyze BloodHound data for attack paths.
+        Task: {task}
+        Identify shortest paths to DA, kerberoastable accounts.
+      subagent_type: "general-purpose"
+      tools: ["Bash"]
+
+    - id: "ad-kerberoast"
+      name: "Kerberoaster"
+      description: "Kerberoasting attacks"
+      prompt_template: |
+        You perform Kerberoasting attacks.
+        Task: {task}
+        Request TGS tickets, crack service account passwords.
+      subagent_type: "general-purpose"
+      tools: ["Bash"]
+
+    - id: "ad-asrep"
+      name: "AS-REP Roaster"
+      description: "AS-REP Roasting attacks"
+      prompt_template: |
+        You perform AS-REP Roasting.
+        Task: {task}
+        Find accounts without pre-auth, crack hashes.
+      subagent_type: "general-purpose"
+      tools: ["Bash"]
+
+    - id: "ad-pass-spray"
+      name: "Password Sprayer"
+      description: "Password spraying attacks"
+      prompt_template: |
+        You perform password spraying.
+        Task: {task}
+        Use common passwords, respect lockout policies.
+      subagent_type: "general-purpose"
+      tools: ["Bash"]
+
+    - id: "ad-dcsync"
+      name: "DCSync Attacker"
+      description: "DCSync replication attacks"
+      prompt_template: |
+        You perform DCSync attacks.
+        Task: {task}
+        Dump NTDS.dit hashes via replication protocol.
+      subagent_type: "general-purpose"
+      tools: ["Bash"]
+
+    - id: "ad-pass-hash"
+      name: "Pass-the-Hash"
+      description: "Pass-the-Hash attacks"
+      prompt_template: |
+        You perform Pass-the-Hash attacks.
+        Task: {task}
+        Use NTLM hashes for authentication.
+      subagent_type: "general-purpose"
+      tools: ["Bash"]
+
+    - id: "ad-pass-ticket"
+      name: "Pass-the-Ticket"
+      description: "Pass-the-Ticket attacks"
+      prompt_template: |
+        You perform Pass-the-Ticket attacks.
+        Task: {task}
+        Use Kerberos tickets for authentication.
+      subagent_type: "general-purpose"
+      tools: ["Bash"]
+
+    - id: "ad-golden-ticket"
+      name: "Golden Ticket"
+      description: "Golden Ticket attacks"
+      prompt_template: |
+        You create Golden Tickets.
+        Task: {task}
+        Use krbtgt hash for domain-wide persistence.
+      subagent_type: "general-purpose"
+      tools: ["Bash"]
+
+    - id: "ad-silver-ticket"
+      name: "Silver Ticket"
+      description: "Silver Ticket attacks"
+      prompt_template: |
+        You create Silver Tickets.
+        Task: {task}
+        Forge TGS for specific services.
+      subagent_type: "general-purpose"
+      tools: ["Bash"]
+
+    - id: "ad-delegation"
+      name: "Delegation Abuser"
+      description: "Delegation abuse attacks"
+      prompt_template: |
+        You abuse Kerberos delegation.
+        Task: {task}
+        Exploit constrained and unconstrained delegation.
+      subagent_type: "general-purpose"
+      tools: ["Bash"]
+
+    - id: "ad-acl"
+      name: "ACL Abuser"
+      description: "ACL-based attacks"
+      prompt_template: |
+        You abuse Active Directory ACLs.
+        Task: {task}
+        Exploit WriteDacl, GenericAll, ForceChangePassword.
+      subagent_type: "general-purpose"
+      tools: ["Bash"]
+
+    - id: "ad-gpo"
+      name: "GPO Abuser"
+      description: "Group Policy abuse"
+      prompt_template: |
+        You abuse Group Policy Objects.
+        Task: {task}
+        Modify GPOs for code execution, persistence.
+      subagent_type: "general-purpose"
+      tools: ["Bash"]
+
+    - id: "ad-certificate"
+      name: "AD-CS Attacker"
+      description: "AD Certificate Services attacks"
+      prompt_template: |
+        You attack AD Certificate Services.
+        Task: {task}
+        Exploit ESC1-ESC8, request certificates.
+      subagent_type: "general-purpose"
+      tools: ["Bash"]
+
+    - id: "ad-lateral"
+      name: "Lateral Movement Specialist"
+      description: "AD lateral movement"
+      prompt_template: |
+        You perform lateral movement in AD.
+        Task: {task}
+        Use PSExec, WMI, WinRM, DCOM, SSH.
+      subagent_type: "general-purpose"
+      tools: ["Bash"]
+
+  # ---------------------------------------------------------------------------
+  # DEVELOPMENT - Code Review (5 agents)
+  # ---------------------------------------------------------------------------
+  development_code_review:
+    - id: "review-security"
+      name: "Security Code Reviewer"
+      description: "Security-focused code review"
+      prompt_template: |
+        You are a security-focused code reviewer.
+        Task: {task}
+        Check for OWASP Top 10, injection, auth flaws.
+      subagent_type: "general-purpose"
+
+    - id: "review-quality"
+      name: "Code Quality Reviewer"
+      description: "Code quality and best practices"
+      prompt_template: |
+        You review code for quality and best practices.
+        Task: {task}
+        Check naming, structure, SOLID principles.
+      subagent_type: "general-purpose"
+
+    - id: "review-performance"
+      name: "Performance Reviewer"
+      description: "Performance-focused code review"
+      prompt_template: |
+        You review code for performance issues.
+        Task: {task}
+        Check complexity, memory usage, database queries.
+      subagent_type: "general-purpose"
+
+    - id: "review-rust"
+      name: "Rust Specialist"
+      description: "Rust code review"
+      prompt_template: |
+        You are a Rust specialist.
+        Task: {task}
+        Check ownership, lifetimes, unsafe blocks.
+      subagent_type: "general-purpose"
+
+    - id: "review-python"
+      name: "Python Specialist"
+      description: "Python code review"
+      prompt_template: |
+        You are a Python specialist.
+        Task: {task}
+        Check Pythonic patterns, type hints, async.
+      subagent_type: "general-purpose"
+
+  # ---------------------------------------------------------------------------
+  # DEVELOPMENT - Testing (3 agents)
+  # ---------------------------------------------------------------------------
+  development_testing:
+    - id: "test-unit"
+      name: "Unit Test Writer"
+      description: "Write unit tests"
+      prompt_template: |
+        You write comprehensive unit tests.
+        Task: {task}
+        Cover edge cases, use appropriate mocking.
+      subagent_type: "general-purpose"
+
+    - id: "test-integration"
+      name: "Integration Test Writer"
+      description: "Write integration tests"
+      prompt_template: |
+        You write integration tests.
+        Task: {task}
+        Test component interactions, API contracts.
+      subagent_type: "general-purpose"
+
+    - id: "test-security"
+      name: "Security Test Writer"
+      description: "Write security tests"
+      prompt_template: |
+        You write security-focused tests.
+        Task: {task}
+        Test auth, injection, access control.
+      subagent_type: "general-purpose"
+
+  # ---------------------------------------------------------------------------
+  # DEVELOPMENT - Debugging (2 agents)
+  # ---------------------------------------------------------------------------
+  development_debugging:
+    - id: "debug-general"
+      name: "General Debugger"
+      description: "Debug code issues"
+      prompt_template: |
+        You debug code issues.
+        Task: {task}
+        Trace execution, identify root cause.
+      subagent_type: "general-purpose"
+
+    - id: "debug-performance"
+      name: "Performance Debugger"
+      description: "Debug performance issues"
+      prompt_template: |
+        You debug performance issues.
+        Task: {task}
+        Profile, identify bottlenecks.
+      subagent_type: "general-purpose"
+
+  # ---------------------------------------------------------------------------
+  # RESEARCH - Analysis (5 agents)
+  # ---------------------------------------------------------------------------
+  research_analysis:
+    - id: "research-cve"
+      name: "CVE Researcher"
+      description: "CVE vulnerability research"
+      prompt_template: |
+        You research CVE vulnerabilities.
+        Task: {task}
+        Find affected versions, CVSS, exploits, mitigations.
+      subagent_type: "general-purpose"
+      tools: ["WebSearch", "WebFetch"]
+
+    - id: "research-exploit"
+      name: "Exploit Researcher"
+      description: "Exploit research and analysis"
+      prompt_template: |
+        You research exploits.
+        Task: {task}
+        Find PoC, analyze technique, determine reliability.
+      subagent_type: "general-purpose"
+      tools: ["WebSearch", "WebFetch"]
+
+    - id: "research-malware"
+      name: "Malware Analyst"
+      description: "Malware analysis research"
+      prompt_template: |
+        You analyze malware behavior.
+        Task: {task}
+        Static and dynamic analysis findings.
+      subagent_type: "general-purpose"
+      tools: ["WebSearch"]
+
+    - id: "research-technique"
+      name: "Technique Researcher"
+      description: "Attack technique research"
+      prompt_template: |
+        You research attack techniques.
+        Task: {task}
+        Find MITRE ATT&CK mapping, detection, prevention.
+      subagent_type: "general-purpose"
+      tools: ["WebSearch", "WebFetch"]
+
+    - id: "research-tool"
+      name: "Tool Researcher"
+      description: "Security tool research"
+      prompt_template: |
+        You research security tools.
+        Task: {task}
+        Find usage, alternatives, best practices.
+      subagent_type: "general-purpose"
+      tools: ["WebSearch", "WebFetch"]
+
+  # ---------------------------------------------------------------------------
+  # RESEARCH - OSINT (3 agents)
+  # ---------------------------------------------------------------------------
+  research_osint:
+    - id: "osint-person"
+      name: "Person OSINT"
+      description: "OSINT on individuals"
+      prompt_template: |
+        You gather OSINT on individuals.
+        Task: {task}
+        Search social media, professional networks.
+      subagent_type: "general-purpose"
+      tools: ["WebSearch"]
+
+    - id: "osint-company"
+      name: "Company OSINT"
+      description: "OSINT on organizations"
+      prompt_template: |
+        You gather OSINT on organizations.
+        Task: {task}
+        Search public records, news, employees.
+      subagent_type: "general-purpose"
+      tools: ["WebSearch", "WebFetch"]
+
+    - id: "osint-infrastructure"
+      name: "Infrastructure OSINT"
+      description: "OSINT on infrastructure"
+      prompt_template: |
+        You gather OSINT on infrastructure.
+        Task: {task}
+        Search DNS, certificates, hosting info.
+      subagent_type: "general-purpose"
+      tools: ["WebSearch", "WebFetch", "Bash"]
+
+  # ---------------------------------------------------------------------------
+  # VERIFICATION CHAINS (9 agents)
+  # ---------------------------------------------------------------------------
+  verification_chains:
+    - id: "chain-a"
+      name: "Single Source Verification"
+      description: "CHAIN-A: Single authoritative source"
+      prompt_template: |
+        You are a verification agent running CHAIN-A.
+        Task: {task}
+        Verify using a single authoritative source.
+      subagent_type: "general-purpose"
+
+    - id: "chain-b"
+      name: "Dual Source Verification"
+      description: "CHAIN-B: Two independent sources"
+      prompt_template: |
+        You are a verification agent running CHAIN-B.
+        Task: {task}
+        Cross-reference exactly 2 independent sources.
+      subagent_type: "general-purpose"
+
+    - id: "chain-c"
+      name: "Triple Source Verification"
+      description: "CHAIN-C: Three source consensus"
+      prompt_template: |
+        You are a verification agent running CHAIN-C.
+        Task: {task}
+        Cross-reference 3 independent sources.
+      subagent_type: "general-purpose"
+
+    - id: "chain-d"
+      name: "Adversarial Verification"
+      description: "CHAIN-D: Devil's advocate"
+      prompt_template: |
+        You are a verification agent running CHAIN-D.
+        Task: {task}
+        Actively try to DISPROVE this claim.
+      subagent_type: "general-purpose"
+
+    - id: "chain-e"
+      name: "Mathematical Verification"
+      description: "CHAIN-E: Formal proof"
+      prompt_template: |
+        You are a verification agent running CHAIN-E.
+        Task: {task}
+        Apply formal logic or mathematical proof.
+      subagent_type: "general-purpose"
+
+    - id: "chain-f"
+      name: "Domain Expert Verification"
+      description: "CHAIN-F: Specialized knowledge"
+      prompt_template: |
+        You are a verification agent running CHAIN-F.
+        Task: {task}
+        Apply deep domain expertise.
+      subagent_type: "general-purpose"
+
+    - id: "chain-g"
+      name: "Temporal Verification"
+      description: "CHAIN-G: Time-based validity"
+      prompt_template: |
+        You are a verification agent running CHAIN-G.
+        Task: {task}
+        Verify temporal aspects and currency.
+      subagent_type: "general-purpose"
+
+    - id: "chain-h"
+      name: "Consensus Verification"
+      description: "CHAIN-H: Multi-agent consensus"
+      prompt_template: |
+        You are a verification agent running CHAIN-H.
+        Task: {task}
+        Provide independent assessment for consensus.
+      subagent_type: "general-purpose"
+
+    - id: "chain-i"
+      name: "Streaming Verification"
+      description: "CHAIN-I: Incremental with early exit"
+      prompt_template: |
+        You are a verification agent running CHAIN-I.
+        Task: {task}
+        Provide incremental verification with confidence updates.
+      subagent_type: "general-purpose"
+
+  # ---------------------------------------------------------------------------
+  # META AGENTS (6 agents)
+  # ---------------------------------------------------------------------------
+  meta_agents:
+    - id: "meta-decompose"
+      name: "Task Decomposer"
+      description: "Decompose complex tasks"
+      prompt_template: |
+        You decompose complex tasks into sub-goals.
+        Task: {task}
+        Create ordered, dependency-aware subtasks.
+      subagent_type: "Plan"
+
+    - id: "meta-prioritize"
+      name: "Priority Analyzer"
+      description: "Prioritize tasks and goals"
+      prompt_template: |
+        You prioritize tasks by impact and urgency.
+        Task: {task}
+        Rank by ROI, dependencies, risk.
+      subagent_type: "general-purpose"
+
+    - id: "meta-schedule"
+      name: "Execution Scheduler"
+      description: "Schedule parallel execution"
+      prompt_template: |
+        You schedule task execution.
+        Task: {task}
+        Identify parallelizable tasks, dependencies.
+      subagent_type: "general-purpose"
+
+    - id: "meta-aggregate"
+      name: "Result Aggregator"
+      description: "Aggregate multi-agent results"
+      prompt_template: |
+        You aggregate results from multiple agents.
+        Task: {task}
+        Combine findings, resolve conflicts.
+      subagent_type: "general-purpose"
+
+    - id: "meta-summarize"
+      name: "Executive Summarizer"
+      description: "Create executive summaries"
+      prompt_template: |
+        You create executive summaries.
+        Task: {task}
+        Distill key findings, recommendations.
+      subagent_type: "general-purpose"
+
+    - id: "meta-report"
+      name: "Report Generator"
+      description: "Generate formal reports"
+      prompt_template: |
+        You generate formal reports.
+        Task: {task}
+        Structure findings, evidence, recommendations.
+      subagent_type: "general-purpose"
+
+  # ---------------------------------------------------------------------------
+  # VAULT BLESSING AGENTS (5 agents)
+  # ---------------------------------------------------------------------------
+  vault_blessing:
+    - id: "bless-index-generator"
+      name: "Index File Generator"
+      description: "Creates 00-INDEX.md files for directories"
+      prompt_template: |
+        You are a documentation architect.
+        Task: Create a master 00-INDEX.md file for {directory}
+        Follow the Index Template from VAULT-BLESSING-CRITERIA.md
+      subagent_type: "general-purpose"
+      tools: ["Read", "Write", "Glob", "Grep"]
+      timeout_ms: 300000
+
+    - id: "bless-technique-doc"
+      name: "Technique Document Enhancer"
+      description: "Upgrades technique docs to terror-quality"
+      prompt_template: |
+        You are a penetration testing documentation expert.
+        Task: Upgrade {file} to Operation Terror quality standard.
+      subagent_type: "general-purpose"
+      tools: ["Read", "Write", "Edit"]
+      timeout_ms: 600000
+
+    - id: "bless-apt-profile"
+      name: "APT Profile Generator"
+      description: "Creates threat actor profile documents"
+      prompt_template: |
+        You are a threat intelligence analyst.
+        Task: Create a threat actor profile for {threat_actor}
+      subagent_type: "general-purpose"
+      tools: ["Read", "Write", "WebSearch"]
+      timeout_ms: 600000
+
+    - id: "bless-detection-doc"
+      name: "Detection Document Generator"
+      description: "Creates blue team detection guides"
+      prompt_template: |
+        You are a detection engineering specialist.
+        Task: Create a detection guide for {technique}
+      subagent_type: "general-purpose"
+      tools: ["Read", "Write", "Grep"]
+      timeout_ms: 300000
+
+    - id: "bless-wiki-linker"
+      name: "Wiki Link Integrator"
+      description: "Adds Obsidian wiki links throughout vault"
+      prompt_template: |
+        You are an Obsidian vault integration specialist.
+        Task: Add wiki links to {file}
+      subagent_type: "general-purpose"
+      tools: ["Read", "Edit", "Grep", "Glob"]
+      timeout_ms: 180000
+
+# =============================================================================
+# DOMAIN: LEGAL (16 agents)
+# Source: legal_agents.yaml
+# =============================================================================
+
+legal:
+  # L.REG - Regulatory (4 agents)
+  regulatory:
+    - id: "legal-regulatory-financial"
+      name: "Financial Regulation Expert"
+      source: "legal_agents.yaml"
+    - id: "legal-regulatory-healthcare"
+      name: "Healthcare Regulation Expert"
+      source: "legal_agents.yaml"
+    - id: "legal-regulatory-environmental"
+      name: "Environmental Regulation Expert"
+      source: "legal_agents.yaml"
+    - id: "legal-regulatory-telecom"
+      name: "Telecommunications Regulation Expert"
+      source: "legal_agents.yaml"
+
+  # L.CON - Contract (4 agents)
+  contract:
+    - id: "legal-contract-commercial"
+      name: "Commercial Contract Reviewer"
+      source: "legal_agents.yaml"
+    - id: "legal-contract-employment"
+      name: "Employment Contract Reviewer"
+      source: "legal_agents.yaml"
+    - id: "legal-contract-licensing"
+      name: "Licensing Agreement Reviewer"
+      source: "legal_agents.yaml"
+    - id: "legal-contract-mna"
+      name: "M&A Agreement Reviewer"
+      source: "legal_agents.yaml"
+
+  # L.IPR - Intellectual Property (4 agents)
+  intellectual_property:
+    - id: "legal-ip-patent"
+      name: "Patent Analyst"
+      source: "legal_agents.yaml"
+    - id: "legal-ip-trademark"
+      name: "Trademark Analyst"
+      source: "legal_agents.yaml"
+    - id: "legal-ip-copyright"
+      name: "Copyright Analyst"
+      source: "legal_agents.yaml"
+    - id: "legal-ip-tradesecret"
+      name: "Trade Secret Analyst"
+      source: "legal_agents.yaml"
+
+  # L.CMP - Compliance (4 agents)
+  compliance:
+    - id: "legal-compliance-privacy"
+      name: "Privacy Compliance Auditor"
+      source: "legal_agents.yaml"
+    - id: "legal-compliance-security"
+      name: "Security Compliance Auditor"
+      source: "legal_agents.yaml"
+    - id: "legal-compliance-financial"
+      name: "Financial Compliance Auditor"
+      source: "legal_agents.yaml"
+    - id: "legal-compliance-industry"
+      name: "Industry Compliance Specialist"
+      source: "legal_agents.yaml"
+
+# =============================================================================
+# DOMAIN: BUSINESS (16 agents)
+# Source: business_agents.yaml
+# =============================================================================
+
+business:
+  # B.STR - Strategy (4 agents)
+  strategy:
+    - id: "business-strategy-corporate"
+      name: "Corporate Strategy Expert"
+      source: "business_agents.yaml"
+    - id: "business-strategy-competitive"
+      name: "Competitive Strategy Analyst"
+      source: "business_agents.yaml"
+    - id: "business-strategy-growth"
+      name: "Growth Strategy Specialist"
+      source: "business_agents.yaml"
+    - id: "business-strategy-digital"
+      name: "Digital Strategy Architect"
+      source: "business_agents.yaml"
+
+  # B.OPS - Operations (4 agents)
+  operations:
+    - id: "business-ops-process"
+      name: "Process Optimization Expert"
+      source: "business_agents.yaml"
+    - id: "business-ops-supply-chain"
+      name: "Supply Chain Strategist"
+      source: "business_agents.yaml"
+    - id: "business-ops-quality"
+      name: "Quality Management Expert"
+      source: "business_agents.yaml"
+    - id: "business-ops-scaling"
+      name: "Scaling Operations Specialist"
+      source: "business_agents.yaml"
+
+  # B.FIN - Finance (4 agents)
+  finance:
+    - id: "business-finance-valuation"
+      name: "Valuation Expert"
+      source: "business_agents.yaml"
+    - id: "business-finance-investment"
+      name: "Investment Analyst"
+      source: "business_agents.yaml"
+    - id: "business-finance-risk"
+      name: "Financial Risk Manager"
+      source: "business_agents.yaml"
+    - id: "business-finance-treasury"
+      name: "Treasury Management Expert"
+      source: "business_agents.yaml"
+
+  # B.MKT - Marketing (4 agents)
+  marketing:
+    - id: "business-marketing-brand"
+      name: "Brand Strategy Expert"
+      source: "business_agents.yaml"
+    - id: "business-marketing-digital"
+      name: "Digital Marketing Strategist"
+      source: "business_agents.yaml"
+    - id: "business-marketing-product"
+      name: "Product Marketing Manager"
+      source: "business_agents.yaml"
+    - id: "business-marketing-analysis"
+      name: "Market Research Analyst"
+      source: "business_agents.yaml"
+
+# =============================================================================
+# DOMAIN: MEDICAL (16 agents)
+# Source: medical-registry.yaml
+# =============================================================================
+
+medical:
+  # M.DGN - Diagnosis (4 agents)
+  diagnosis:
+    - id: "medical-diagnosis-differential"
+      name: "Differential Diagnosis Specialist"
+      source: "medical-registry.yaml"
+    - id: "medical-diagnosis-imaging"
+      name: "Medical Imaging Analyst"
+      source: "medical-registry.yaml"
+    - id: "medical-diagnosis-laboratory"
+      name: "Clinical Laboratory Specialist"
+      source: "medical-registry.yaml"
+    - id: "medical-diagnosis-genetic"
+      name: "Clinical Geneticist"
+      source: "medical-registry.yaml"
+
+  # M.TRT - Treatment (4 agents)
+  treatment:
+    - id: "medical-treatment-pharmacology"
+      name: "Clinical Pharmacologist"
+      source: "medical-registry.yaml"
+    - id: "medical-treatment-surgical"
+      name: "Surgical Planning Consultant"
+      source: "medical-registry.yaml"
+    - id: "medical-treatment-therapeutic"
+      name: "Therapeutic Interventionist"
+      source: "medical-registry.yaml"
+    - id: "medical-treatment-palliative"
+      name: "Palliative Care Specialist"
+      source: "medical-registry.yaml"
+
+  # M.RES - Research (4 agents)
+  research:
+    - id: "medical-research-clinical-trials"
+      name: "Clinical Trials Specialist"
+      source: "medical-registry.yaml"
+    - id: "medical-research-translational"
+      name: "Translational Research Scientist"
+      source: "medical-registry.yaml"
+    - id: "medical-research-epidemiology"
+      name: "Clinical Epidemiologist"
+      source: "medical-registry.yaml"
+    - id: "medical-research-pharma-rd"
+      name: "Pharmaceutical R&D Strategist"
+      source: "medical-registry.yaml"
+
+  # M.OPS - Operations (4 agents)
+  operations:
+    - id: "medical-operations-administration"
+      name: "Healthcare Administrator"
+      source: "medical-registry.yaml"
+    - id: "medical-operations-quality"
+      name: "Clinical Quality Officer"
+      source: "medical-registry.yaml"
+    - id: "medical-operations-informatics"
+      name: "Clinical Informatics Specialist"
+      source: "medical-registry.yaml"
+    - id: "medical-operations-policy"
+      name: "Health Policy Analyst"
+      source: "medical-registry.yaml"
+
+# =============================================================================
+# DOMAIN: ENGINEERING (24 agents)
+# Source: engineering_agents.yaml
+# =============================================================================
+
+engineering:
+  # E.SYS - Systems Engineering (4 agents)
+  systems:
+    - id: "engineering-systems-requirements"
+      name: "Requirements Engineer"
+      source: "engineering_agents.yaml"
+    - id: "engineering-systems-architecture"
+      name: "Systems Architect"
+      source: "engineering_agents.yaml"
+    - id: "engineering-systems-integration"
+      name: "Systems Integration Engineer"
+      source: "engineering_agents.yaml"
+    - id: "engineering-systems-verification"
+      name: "V&V Engineer"
+      source: "engineering_agents.yaml"
+
+  # E.MEC - Mechanical Engineering (4 agents)
+  mechanical:
+    - id: "engineering-mechanical-design"
+      name: "Mechanical Design Engineer"
+      source: "engineering_agents.yaml"
+    - id: "engineering-mechanical-manufacturing"
+      name: "Manufacturing Engineer"
+      source: "engineering_agents.yaml"
+    - id: "engineering-mechanical-thermodynamics"
+      name: "Thermal Engineer"
+      source: "engineering_agents.yaml"
+    - id: "engineering-mechanical-fluids"
+      name: "Fluids Engineer"
+      source: "engineering_agents.yaml"
+
+  # E.ELE - Electrical Engineering (4 agents)
+  electrical:
+    - id: "engineering-electrical-power"
+      name: "Power Systems Engineer"
+      source: "engineering_agents.yaml"
+    - id: "engineering-electrical-signal"
+      name: "Signal Processing Engineer"
+      source: "engineering_agents.yaml"
+    - id: "engineering-electrical-embedded"
+      name: "Embedded Systems Engineer"
+      source: "engineering_agents.yaml"
+    - id: "engineering-electrical-communications"
+      name: "Communications Engineer"
+      source: "engineering_agents.yaml"
+
+  # E.CIV - Civil Engineering (4 agents)
+  civil:
+    - id: "engineering-civil-structural"
+      name: "Structural Engineer"
+      source: "engineering_agents.yaml"
+    - id: "engineering-civil-geotechnical"
+      name: "Geotechnical Engineer"
+      source: "engineering_agents.yaml"
+    - id: "engineering-civil-transportation"
+      name: "Transportation Engineer"
+      source: "engineering_agents.yaml"
+    - id: "engineering-civil-water"
+      name: "Water Resources Engineer"
+      source: "engineering_agents.yaml"
+
+  # E.CHM - Chemical Engineering (4 agents)
+  chemical:
+    - id: "engineering-chemical-process"
+      name: "Process Engineer"
+      source: "engineering_agents.yaml"
+    - id: "engineering-chemical-materials"
+      name: "Materials Engineer"
+      source: "engineering_agents.yaml"
+    - id: "engineering-chemical-biochemical"
+      name: "Biochemical Engineer"
+      source: "engineering_agents.yaml"
+    - id: "engineering-chemical-environmental"
+      name: "Environmental Engineer"
+      source: "engineering_agents.yaml"
+
+  # Cross-Domain Engineering (4 agents)
+  cross_domain:
+    - id: "engineering-fmea-specialist"
+      name: "FMEA Specialist"
+      source: "engineering_agents.yaml"
+    - id: "engineering-reliability"
+      name: "Reliability Engineer"
+      source: "engineering_agents.yaml"
+    - id: "engineering-safety"
+      name: "Safety Engineer"
+      source: "engineering_agents.yaml"
+    - id: "engineering-cost"
+      name: "Cost Engineer"
+      source: "engineering_agents.yaml"
+
+# =============================================================================
+# DOMAIN: SCIENCE (16 agents)
+# Source: science_crossdomain_registry.yaml
+# =============================================================================
+
+science:
+  # S.RES - Research Methodology (4 agents)
+  research_methodology:
+    - id: "science-res-experimental"
+      name: "Experimental Design Specialist"
+      source: "science_crossdomain_registry.yaml"
+    - id: "science-res-statistical"
+      name: "Statistical Analysis Expert"
+      source: "science_crossdomain_registry.yaml"
+    - id: "science-res-reproducibility"
+      name: "Reproducibility Auditor"
+      source: "science_crossdomain_registry.yaml"
+    - id: "science-res-ethics"
+      name: "Research Ethics Analyst"
+      source: "science_crossdomain_registry.yaml"
+
+  # S.PHY - Physical Sciences (4 agents)
+  physical_sciences:
+    - id: "science-phy-physics"
+      name: "Physics Analyst"
+      source: "science_crossdomain_registry.yaml"
+    - id: "science-phy-chemistry"
+      name: "Chemistry Analyst"
+      source: "science_crossdomain_registry.yaml"
+    - id: "science-phy-astronomy"
+      name: "Astronomy and Astrophysics Analyst"
+      source: "science_crossdomain_registry.yaml"
+    - id: "science-phy-geology"
+      name: "Geology and Earth Science Analyst"
+      source: "science_crossdomain_registry.yaml"
+
+  # S.LIF - Life Sciences (4 agents)
+  life_sciences:
+    - id: "science-lif-biology"
+      name: "Biology Analyst"
+      source: "science_crossdomain_registry.yaml"
+    - id: "science-lif-genetics"
+      name: "Genetics and Genomics Analyst"
+      source: "science_crossdomain_registry.yaml"
+    - id: "science-lif-neuroscience"
+      name: "Neuroscience Analyst"
+      source: "science_crossdomain_registry.yaml"
+    - id: "science-lif-ecology"
+      name: "Ecology and Environmental Science Analyst"
+      source: "science_crossdomain_registry.yaml"
+
+  # S.SOC - Social Sciences (4 agents)
+  social_sciences:
+    - id: "science-soc-psychology"
+      name: "Psychology Analyst"
+      source: "science_crossdomain_registry.yaml"
+    - id: "science-soc-economics"
+      name: "Economics Analyst"
+      source: "science_crossdomain_registry.yaml"
+    - id: "science-soc-sociology"
+      name: "Sociology Analyst"
+      source: "science_crossdomain_registry.yaml"
+    - id: "science-soc-political"
+      name: "Political Science Analyst"
+      source: "science_crossdomain_registry.yaml"
+
+# =============================================================================
+# DOMAIN: CROSS-DOMAIN (16 agents)
+# Source: science_crossdomain_registry.yaml
+# =============================================================================
+
+cross_domain:
+  # X.RSK - Risk Management (4 agents)
+  risk_management:
+    - id: "crossdomain-rsk-assessment"
+      name: "Risk Assessment Specialist"
+      source: "science_crossdomain_registry.yaml"
+    - id: "crossdomain-rsk-mitigation"
+      name: "Risk Mitigation Planner"
+      source: "science_crossdomain_registry.yaml"
+    - id: "crossdomain-rsk-monitoring"
+      name: "Risk Monitoring Specialist"
+      source: "science_crossdomain_registry.yaml"
+    - id: "crossdomain-rsk-communication"
+      name: "Risk Communication Specialist"
+      source: "science_crossdomain_registry.yaml"
+
+  # X.PRJ - Project Management (4 agents)
+  project_management:
+    - id: "crossdomain-prj-planning"
+      name: "Project Planning Specialist"
+      source: "science_crossdomain_registry.yaml"
+    - id: "crossdomain-prj-execution"
+      name: "Project Execution Manager"
+      source: "science_crossdomain_registry.yaml"
+    - id: "crossdomain-prj-monitoring"
+      name: "Project Monitoring Analyst"
+      source: "science_crossdomain_registry.yaml"
+    - id: "crossdomain-prj-agile"
+      name: "Agile Methods Specialist"
+      source: "science_crossdomain_registry.yaml"
+
+  # X.QUA - Quality Assurance (4 agents)
+  quality_assurance:
+    - id: "crossdomain-qua-standards"
+      name: "Quality Standards Specialist"
+      source: "science_crossdomain_registry.yaml"
+    - id: "crossdomain-qua-auditing"
+      name: "Quality Auditor"
+      source: "science_crossdomain_registry.yaml"
+    - id: "crossdomain-qua-metrics"
+      name: "Quality Metrics Analyst"
+      source: "science_crossdomain_registry.yaml"
+    - id: "crossdomain-qua-improvement"
+      name: "Continuous Improvement Specialist"
+      source: "science_crossdomain_registry.yaml"
+
+  # X.DEC - Decision Analysis (4 agents)
+  decision_analysis:
+    - id: "crossdomain-dec-frameworks"
+      name: "Decision Framework Specialist"
+      source: "science_crossdomain_registry.yaml"
+    - id: "crossdomain-dec-multicriteria"
+      name: "Multi-Criteria Decision Analyst"
+      source: "science_crossdomain_registry.yaml"
+    - id: "crossdomain-dec-uncertainty"
+      name: "Decision Under Uncertainty Analyst"
+      source: "science_crossdomain_registry.yaml"
+    - id: "crossdomain-dec-gametheory"
+      name: "Game Theory Analyst"
+      source: "science_crossdomain_registry.yaml"
+
+# =============================================================================
+# PRESETS (Agent Teams) - All Domains
+# =============================================================================
+
+presets:
+  # ----- TECHNOLOGY PRESETS -----
+  security_audit:
+    description: "Full security audit team"
+    domain: TECHNOLOGY
+    agents:
+      - "recon-nmap-full"
+      - "recon-gobuster-dir"
+      - "web-sqli-auto"
+      - "web-xss"
+      - "privesc-linux-enum"
+      - "chain-d"
+      - "meta-report"
+
+  quick_recon:
+    description: "Fast reconnaissance"
+    domain: TECHNOLOGY
+    agents:
+      - "recon-nmap-quick"
+      - "recon-dns"
+      - "recon-web-tech"
+
+  ad_attack:
+    description: "Active Directory attack path"
+    domain: TECHNOLOGY
+    agents:
+      - "ad-enum"
+      - "ad-bloodhound"
+      - "ad-kerberoast"
+      - "ad-pass-spray"
+
+  code_review:
+    description: "Comprehensive code review"
+    domain: TECHNOLOGY
+    agents:
+      - "review-security"
+      - "review-quality"
+      - "review-performance"
+      - "test-security"
+
+  verification:
+    description: "Multi-chain verification"
+    domain: TECHNOLOGY
+    agents:
+      - "chain-a"
+      - "chain-b"
+      - "chain-d"
+      - "meta-aggregate"
+
+  full_blessing:
+    description: "Complete vault blessing operation"
+    domain: TECHNOLOGY
+    agents:
+      - "bless-index-generator"
+      - "bless-technique-doc"
+      - "bless-apt-profile"
+      - "bless-detection-doc"
+      - "bless-wiki-linker"
+
+  # ----- LEGAL PRESETS -----
+  contract_review:
+    description: "Full contract review team for commercial agreements"
+    domain: LEGAL
+    agents:
+      - "legal-contract-commercial"
+      - "legal-contract-licensing"
+      - "legal-ip-tradesecret"
+      - "legal-compliance-privacy"
+
+  due_diligence:
+    description: "M&A due diligence team"
+    domain: LEGAL
+    agents:
+      - "legal-contract-mna"
+      - "legal-contract-employment"
+      - "legal-ip-patent"
+      - "legal-compliance-financial"
+      - "legal-regulatory-financial"
+
+  ip_portfolio_review:
+    description: "Intellectual property portfolio assessment"
+    domain: LEGAL
+    agents:
+      - "legal-ip-patent"
+      - "legal-ip-trademark"
+      - "legal-ip-copyright"
+      - "legal-ip-tradesecret"
+
+  compliance_audit:
+    description: "Comprehensive compliance audit team"
+    domain: LEGAL
+    agents:
+      - "legal-compliance-privacy"
+      - "legal-compliance-security"
+      - "legal-compliance-financial"
+      - "legal-compliance-industry"
+
+  # ----- BUSINESS PRESETS -----
+  strategic_planning:
+    description: "Comprehensive strategic planning team"
+    domain: BUSINESS
+    agents:
+      - "business-strategy-corporate"
+      - "business-strategy-competitive"
+      - "business-strategy-growth"
+      - "business-finance-valuation"
+
+  go_to_market:
+    description: "Product launch and go-to-market team"
+    domain: BUSINESS
+    agents:
+      - "business-marketing-product"
+      - "business-marketing-digital"
+      - "business-marketing-brand"
+      - "business-marketing-analysis"
+
+  operational_excellence:
+    description: "Operations improvement team"
+    domain: BUSINESS
+    agents:
+      - "business-ops-process"
+      - "business-ops-supply-chain"
+      - "business-ops-quality"
+      - "business-ops-scaling"
+
+  financial_analysis:
+    description: "Comprehensive financial analysis team"
+    domain: BUSINESS
+    agents:
+      - "business-finance-valuation"
+      - "business-finance-investment"
+      - "business-finance-risk"
+      - "business-finance-treasury"
+
+  # ----- MEDICAL PRESETS -----
+  comprehensive_diagnosis:
+    description: "Full diagnostic workup team"
+    domain: MEDICAL
+    agents:
+      - "medical-diagnosis-differential"
+      - "medical-diagnosis-imaging"
+      - "medical-diagnosis-laboratory"
+      - "medical-diagnosis-genetic"
+
+  treatment_planning:
+    description: "Multidisciplinary treatment planning"
+    domain: MEDICAL
+    agents:
+      - "medical-treatment-pharmacology"
+      - "medical-treatment-surgical"
+      - "medical-treatment-therapeutic"
+      - "medical-treatment-palliative"
+
+  clinical_research:
+    description: "Clinical research design team"
+    domain: MEDICAL
+    agents:
+      - "medical-research-clinical-trials"
+      - "medical-research-epidemiology"
+      - "medical-research-translational"
+
+  healthcare_quality:
+    description: "Quality and operations improvement"
+    domain: MEDICAL
+    agents:
+      - "medical-operations-quality"
+      - "medical-operations-administration"
+      - "medical-operations-informatics"
+
+  # ----- ENGINEERING PRESETS -----
+  systems_engineering_review:
+    description: "Complete systems engineering review team"
+    domain: ENGINEERING
+    agents:
+      - "engineering-systems-requirements"
+      - "engineering-systems-architecture"
+      - "engineering-systems-verification"
+      - "engineering-fmea-specialist"
+      - "engineering-reliability"
+
+  product_design_review:
+    description: "Product design review team"
+    domain: ENGINEERING
+    agents:
+      - "engineering-mechanical-design"
+      - "engineering-mechanical-manufacturing"
+      - "engineering-fmea-specialist"
+      - "engineering-cost"
+      - "engineering-safety"
+
+  embedded_system_design:
+    description: "Embedded system design team"
+    domain: ENGINEERING
+    agents:
+      - "engineering-electrical-embedded"
+      - "engineering-electrical-signal"
+      - "engineering-systems-integration"
+      - "engineering-systems-verification"
+
+  infrastructure_project:
+    description: "Civil infrastructure project team"
+    domain: ENGINEERING
+    agents:
+      - "engineering-civil-structural"
+      - "engineering-civil-geotechnical"
+      - "engineering-civil-water"
+      - "engineering-civil-transportation"
+
+  # ----- SCIENCE PRESETS -----
+  scientific_research:
+    description: "Full scientific research analysis team"
+    domain: SCIENCE
+    agents:
+      - "science-res-experimental"
+      - "science-res-statistical"
+      - "science-res-reproducibility"
+      - "science-res-ethics"
+
+  physical_science_review:
+    description: "Physical science analysis team"
+    domain: SCIENCE
+    agents:
+      - "science-phy-physics"
+      - "science-phy-chemistry"
+      - "science-res-experimental"
+
+  life_science_review:
+    description: "Life science analysis team"
+    domain: SCIENCE
+    agents:
+      - "science-lif-biology"
+      - "science-lif-genetics"
+      - "science-res-statistical"
+
+  # ----- CROSS-DOMAIN PRESETS -----
+  risk_management_full:
+    description: "Complete risk management cycle"
+    domain: CROSS_DOMAIN
+    agents:
+      - "crossdomain-rsk-assessment"
+      - "crossdomain-rsk-mitigation"
+      - "crossdomain-rsk-monitoring"
+      - "crossdomain-rsk-communication"
+
+  project_lifecycle:
+    description: "Full project management lifecycle"
+    domain: CROSS_DOMAIN
+    agents:
+      - "crossdomain-prj-planning"
+      - "crossdomain-prj-execution"
+      - "crossdomain-prj-monitoring"
+      - "crossdomain-prj-agile"
+
+  quality_system:
+    description: "Quality management system"
+    domain: CROSS_DOMAIN
+    agents:
+      - "crossdomain-qua-standards"
+      - "crossdomain-qua-auditing"
+      - "crossdomain-qua-metrics"
+      - "crossdomain-qua-improvement"
+
+  strategic_decision:
+    description: "Strategic decision-making team"
+    domain: CROSS_DOMAIN
+    agents:
+      - "crossdomain-dec-frameworks"
+      - "crossdomain-dec-multicriteria"
+      - "crossdomain-dec-uncertainty"
+      - "crossdomain-dec-gametheory"
+
+# =============================================================================
+# SOURCE FILE REFERENCES
+# For full agent definitions with complete prompt_template fields,
+# refer to these source files:
+# =============================================================================
+
+source_files:
+  technology: "registry.yaml"
+  legal: "legal_agents.yaml"
+  business: "business_agents.yaml"
+  medical: "medical-registry.yaml"
+  engineering: "engineering_agents.yaml"
+  science: "science_crossdomain_registry.yaml"
+  cross_domain: "science_crossdomain_registry.yaml"
+
+# =============================================================================
+# AGENT COUNT SUMMARY
+# =============================================================================
+
+agent_counts:
+  technology:
+    security_reconnaissance: 15
+    security_web_exploitation: 20
+    security_privilege_escalation: 15
+    security_active_directory: 15
+    development_code_review: 5
+    development_testing: 3
+    development_debugging: 2
+    research_analysis: 5
+    research_osint: 3
+    verification_chains: 9
+    meta_agents: 6
+    vault_blessing: 5
+    subtotal: 103
+
+  legal:
+    regulatory: 4
+    contract: 4
+    intellectual_property: 4
+    compliance: 4
+    subtotal: 16
+
+  business:
+    strategy: 4
+    operations: 4
+    finance: 4
+    marketing: 4
+    subtotal: 16
+
+  medical:
+    diagnosis: 4
+    treatment: 4
+    research: 4
+    operations: 4
+    subtotal: 16
+
+  engineering:
+    systems: 4
+    mechanical: 4
+    electrical: 4
+    civil: 4
+    chemical: 4
+    cross_domain: 4
+    subtotal: 24
+
+  science:
+    research_methodology: 4
+    physical_sciences: 4
+    life_sciences: 4
+    social_sciences: 4
+    subtotal: 16
+
+  cross_domain:
+    risk_management: 4
+    project_management: 4
+    quality_assurance: 4
+    decision_analysis: 4
+    subtotal: 16
+
+  TOTAL: 207
