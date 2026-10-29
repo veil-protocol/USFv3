@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+# USF 8.0 REBORN — zero-friction launcher.
+#   ./usf "your vision here" [--precision N] [--compute TYPE] [--json]
+#   ./usf --show-interface
+# No install, no dependencies (Python 3.10+ stdlib only).
+exec python3 "$(cd "$(dirname "$0")" && pwd)/engine/usf.py" "$@"

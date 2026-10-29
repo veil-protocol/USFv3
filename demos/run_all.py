@@ -36,7 +36,7 @@ def breadth() -> None:
         ("product",  "turn our 'AI meeting notes' idea into a complete product spec"),
         ("decision", "recommend build vs buy for our vector database, high stakes"),
     ]
-    print(f"  {'domain tag':<10}{'detected':<14}{'PL':<4}{'compute':<12}{'lead expert':<22}agents")
+    print(f"  {'tag':<10}{'detected':<14}{'PL':<4}{'compute':<12}{'lead expert':<22}agents")
     for tag, v in visions:
         p = usf.plan(v)
         lead = p.expert_panel[0]["persona"]

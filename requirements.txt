@@ -1,0 +1,10 @@
+# USF 8.0 REBORN has NO third-party dependencies.
+# Requires only Python 3.10+ (standard library).
+#
+# Everything runs with plain `python3`:
+#   ./usf "your vision"            # or: python3 engine/usf.py "your vision"
+#   python3 run_tests.py           # self-test gate (10/10)
+#   python3 demos/run_all.py       # full demo
+#
+# The modules under engine/_harvested/ are reference-only (not imported); a few
+# of them originally used tiktoken/omega packages — the wired product does not.

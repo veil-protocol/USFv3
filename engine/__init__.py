@@ -1,9 +1,19 @@
 """
-USF 6.5 APEX - Agent Registry
+USF 8.0 REBORN — engine package.
 
-150+ specialized agents for task-specific execution.
+The wired, zero-dependency product. Core modules are importable flat (the way
+the CLI and the plan-mode hook use them):
+
+    calibrator   — CS/DC/AE/VA/TC precision calibration
+    usf          — the planner (vision → staged plan)
+    verification — chains A–I, blind-vote consensus
+    codex        — codified-output grammar + wired efficiency
+    module       — the Module contract + registry
+    vampirize    — governed external-content ingest
+    evolution/   — bounded self-improvement (oracle_meta, capability_scope, …)
+
+Reference implementations harvested from prior versions (not on the wired path)
+live under `_harvested/`.
 """
 
-from .spawner import AgentSpawner
-
-__all__ = ["AgentSpawner"]
+__version__ = "8.0.0"

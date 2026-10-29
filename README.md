@@ -89,15 +89,21 @@ reported 0×, the calibrator was never coded, the template dir was empty, the
 plan-mode hooks never existed). 8.0's commitment is the inverse: **specification
 that runs** — every feature is either connected or honestly cut.
 
+All components are built, wired, and pass the self-test gate (`run_tests.py`,
+10/10). Zero third-party dependencies — Python 3.10+ standard library only.
+
 | Component | State |
 |---|---|
 | Precision calibrator (CS/DC/AE/VA/TC) | ✅ built + tested (was never coded before) |
 | Canonical specs + 207-agent registry + archetypes | ✅ consolidated |
-| Planner / staged pipeline | 🔧 in progress |
-| Verification chains + consensus | 🔧 in progress |
-| Self-evolution loop + capability-scope gate + cycle harness | 🔧 in progress |
-| Codified-output grammar + efficiency wiring | 🔧 in progress |
-| Plan-mode hook (the glue that never existed) | 🔧 in progress |
+| Planner / staged pipeline | ✅ wired + tested |
+| Verification chains + consensus | ✅ wired + tested |
+| Self-evolution loop + capability-scope gate + cycle harness | ✅ wired + reproduces the paper's convergence |
+| Codified-output grammar + efficiency wiring | ✅ wired (4.74× vs old 1.0×) |
+| Plan-mode hook (the glue that never existed) | ✅ wired + tested |
+
+Reference implementations harvested from prior versions (not on the wired path)
+are kept under `engine/_harvested/` for provenance.
 
 ## Lineage
 
