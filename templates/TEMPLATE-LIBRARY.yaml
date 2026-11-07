@@ -1,0 +1,191 @@
+# USF 6.5.0 OMEGA - Execution Templates
+# Pre-configured task patterns with recommended settings
+
+version: "6.5.0"
+
+templates:
+  # Security Templates
+  security:
+    # RESERVED: Not currently wired into execution flow
+    TMPL-SEC:
+      name: "Security Analysis"
+      short: "7-phase security audit"
+      phases: 7
+      engines: [1, 2, 3, 4, 5, 8, 10, 14]
+      precision: "PL3"
+      chains: ["A", "B", "C", "G"]
+      description: "Standard security analysis with static/dynamic analysis and formal verification"
+
+    TMPL-SEC-AUTO:
+      name: "Autonomous Security"
+      short: "9-phase with AFP gates"
+      phases: 9
+      engines: [1, 2, 3, 4, 5, 6, 8, 10, 12, 14]
+      precision: "PL4"
+      chains: ["A", "B", "C", "D", "G"]
+      profile: "autonomous"
+      description: "Full autonomous security audit with Autonomous Failure Prevention gates"
+
+    TMPL-SEC-PQC:
+      name: "Post-Quantum Crypto"
+      short: "Cryptographic analysis"
+      phases: 5
+      engines: [1, 3, 4, 5, 10, 14]
+      precision: "PL5"
+      chains: ["A", "C", "E"]
+      description: "Post-quantum cryptographic security analysis with formal proofs"
+
+    # RESERVED: Not currently wired into execution flow
+    TMPL-SEC-PRO:
+      name: "Protocol Analysis"
+      short: "Protocol security review"
+      phases: 6
+      engines: [1, 2, 3, 4, 5, 14]
+      precision: "PL4"
+      chains: ["A", "C", "D"]
+      description: "Communication protocol security analysis"
+
+    # RESERVED: Not currently wired into execution flow
+    TMPL-SEC-APT:
+      name: "APT Campaign Analysis"
+      short: "Threat actor analysis"
+      phases: 8
+      engines: [1, 2, 4, 5, 13, 14]
+      precision: "PL3"
+      chains: ["A", "D", "E"]
+      description: "Advanced Persistent Threat campaign attribution and analysis"
+
+    # RESERVED: Not currently wired into execution flow
+    TMPL-PENTEST:
+      name: "Penetration Testing"
+      short: "ARTEMIS methodology"
+      phases: 10
+      engines: [1, 2, 3, 4, 5, 6, 8, 10, 12]
+      precision: "PL3"
+      chains: ["A", "B", "D", "I"]
+      profile: "supervised"
+      description: "Full penetration test with ARTEMIS methodology"
+
+  # Design Templates
+  # RESERVED: Not currently wired into execution flow
+  design:
+    # RESERVED: Not currently wired into execution flow
+    TMPL-DSN:
+      name: "Design Review"
+      short: "Architecture analysis"
+      phases: 5
+      engines: [1, 2, 3, 4, 5]
+      precision: "PL3"
+      chains: ["A", "E"]
+      description: "Software architecture and design review"
+
+    # RESERVED: Not currently wired into execution flow
+    TMPL-DSN-DIS:
+      name: "Distributed Systems"
+      short: "Distributed design"
+      phases: 7
+      engines: [1, 2, 3, 4, 5, 8]
+      precision: "PL4"
+      chains: ["A", "C", "D"]
+      description: "Distributed systems design with CAP theorem analysis"
+
+  # Research Templates
+  # RESERVED: Not currently wired into execution flow
+  research:
+    # RESERVED: Not currently wired into execution flow
+    TMPL-SCI:
+      name: "Scientific Research"
+      short: "Research methodology"
+      phases: 6
+      engines: [1, 2, 3, 4, 5, 13, 14]
+      precision: "PL4"
+      chains: ["C", "D", "E"]
+      research_depth: "COMPREHENSIVE"
+      description: "Scientific research with literature review and hypothesis testing"
+
+    # RESERVED: Not currently wired into execution flow
+    TMPL-SCI-EXP:
+      name: "Experimental Design"
+      short: "Experiment planning"
+      phases: 5
+      engines: [1, 2, 3, 4, 13]
+      precision: "PL3"
+      chains: ["C", "D"]
+      description: "Experimental design with statistical power analysis"
+
+  # Business Templates
+  # RESERVED: Not currently wired into execution flow
+  business:
+    # RESERVED: Not currently wired into execution flow
+    TMPL-LEG:
+      name: "Legal Analysis"
+      short: "Legal review"
+      phases: 4
+      engines: [1, 2, 3, 4, 5]
+      precision: "PL3"
+      chains: ["A", "E"]
+      description: "Legal document and compliance analysis"
+
+    # RESERVED: Not currently wired into execution flow
+    TMPL-BUS:
+      name: "Business Strategy"
+      short: "Strategic analysis"
+      phases: 5
+      engines: [1, 2, 3, 5]
+      precision: "PL2"
+      chains: ["D", "E"]
+      behavioral: "business_panel"
+      description: "Business strategy with multi-expert panel"
+
+    # RESERVED: Not currently wired into execution flow
+    TMPL-BUS-MA:
+      name: "M&A Due Diligence"
+      short: "Due diligence"
+      phases: 8
+      engines: [1, 2, 3, 4, 5, 8, 13]
+      precision: "PL4"
+      chains: ["A", "D", "E"]
+      description: "Merger and acquisition due diligence analysis"
+
+  # Development Templates
+  development:
+    TMPL-DEV-ENHANCED:
+      name: "Development Workflow"
+      short: "Enhanced dev flow"
+      phases: 6
+      engines: [1, 2, 3, 4, 6, 8, 10]
+      precision: "PL3"
+      chains: ["A", "B", "F", "G"]
+      description: "Enhanced development with TDD and code review"
+
+  # Cross-Domain Templates
+  # RESERVED: Not currently wired into execution flow
+  cross_domain:
+    # RESERVED: Not currently wired into execution flow
+    TMPL-X-SECBUS:
+      name: "Security + Business"
+      short: "Cross-domain sec/bus"
+      phases: 7
+      engines: [1, 2, 3, 4, 5, 8, 13]
+      precision: "PL3"
+      chains: ["A", "D", "E"]
+      description: "Security risk assessment with business impact analysis"
+
+    # RESERVED: Not currently wired into execution flow
+    TMPL-X-LEGTECH:
+      name: "Legal + Tech"
+      short: "Cross-domain leg/tech"
+      phases: 6
+      engines: [1, 2, 3, 4, 5, 13]
+      precision: "PL3"
+      chains: ["A", "C", "E"]
+      description: "Technical compliance and legal technology analysis"
+
+# Category shortcuts
+categories:
+  security: ["TMPL-SEC", "TMPL-SEC-AUTO", "TMPL-SEC-PQC", "TMPL-SEC-PRO", "TMPL-SEC-APT", "TMPL-PENTEST"]
+  design: ["TMPL-DSN", "TMPL-DSN-DIS"]
+  research: ["TMPL-SCI", "TMPL-SCI-EXP"]
+  business: ["TMPL-LEG", "TMPL-BUS", "TMPL-BUS-MA"]
+  development: ["TMPL-DEV-ENHANCED"]
+  cross_domain: ["TMPL-X-SECBUS", "TMPL-X-LEGTECH"]

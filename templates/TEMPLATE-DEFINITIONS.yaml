@@ -1,0 +1,354 @@
+# USF 6.0 OMEGA - Template Definitions
+# Version: 1.0.0
+# Source of truth for all execution templates
+
+version: 6.0-OMEGA
+total_templates: 17
+
+categories:
+  security:
+    templates: [TMPL-SEC, TMPL-SEC-AUTO, TMPL-SEC-PQC, TMPL-SEC-PRO, TMPL-SEC-APT, TMPL-PENTEST]
+
+  design:
+    templates: [TMPL-DSN, TMPL-DSN-DIS]
+
+  scientific:
+    templates: [TMPL-SCI, TMPL-SCI-EXP]
+
+  business:
+    templates: [TMPL-BUS, TMPL-BUS-MA]
+
+  legal:
+    templates: [TMPL-LEG]
+
+  development:
+    templates: [TMPL-DEV-ENHANCED]
+
+  cross_domain:
+    templates: [TMPL-X-SECBUS, TMPL-X-LEGTECH, TMPL-X-SCIBUS]
+
+templates:
+  TMPL-SEC:
+    name: "Security Analysis"
+    category: security
+    version: "4.0.0"
+    domain_match: "T.SEC.*"
+    archetype_weight:
+      adversarial: 35
+      implementation: 25
+      theoretical: 20
+      strategic: 20
+    phases: 7
+    phase_list:
+      0: "Initialization"
+      1: "Attack Surface Analysis"
+      2: "Vulnerability Identification"
+      3: "Threat Scenario Construction"
+      4: "Countermeasure Design"
+      5: "Verification & Synthesis"
+      6: "Meta-Analysis"
+    expert_focus:
+      primary: "ARC-AD"
+      secondary: ["ARC-IM", "ARC-TH"]
+
+  TMPL-SEC-AUTO:
+    name: "Autonomous Security Analysis"
+    category: security
+    version: "4.2.0"
+    extends: "TMPL-SEC"
+    domain_match: "T.SEC.*"
+    status: "specification"
+    dependencies:
+      - "VEIL C2 Integration"
+      - "Raptor Cannibalization"
+    phases: 9
+    phase_list:
+      0: "Initialization & Context Loading"
+      1: "Static Analysis (Semgrep + CodeQL)"
+      2: "Dynamic Analysis / Fuzzing (AFL++)"
+      3: "LLM Vulnerability Analysis (9 expert personas)"
+      3.5: "Anti-False-Positive Verification (AFP Gates v2)"
+      4: "Exploit Validation (PoC generation)"
+      5: "Patch Generation"
+      6: "OSS Forensics"
+      7: "Report Synthesis (SARIF 2.1, Sigma, MITRE)"
+      8: "Meta-Analysis"
+    afp_gates:
+      1: "Changelog Verification"
+      2: "Default Configuration"
+      3: "Source Code Verification"
+      4: "Working PoC Gate"
+      5: "Control Flow Protection Analysis"
+      6: "Platform Attack Surface Verification"
+      7: "Protective Arithmetic Trace"
+      8: "State Machine Trace Verification"
+      9: "Validation Bypass Proof"
+    expert_panel:
+      - "Mark Dowd"
+      - "Charlie Miller"
+      - "Halvar Flake"
+      - "Bruce Schneier"
+      - "Chris Eagle"
+    verification_chains: ["CHAIN-A", "CHAIN-B", "CHAIN-C", "CHAIN-D", "CHAIN-E", "CHAIN-F", "CHAIN-G", "CHAIN-H", "CHAIN-I"]
+
+  TMPL-SEC-PQC:
+    name: "Post-Quantum Cryptography Analysis"
+    category: security
+    extends: "TMPL-SEC"
+    phases: 7  # Inherits from TMPL-SEC
+    domain_match: "T.SEC.CRY.PQC"
+    specialization:
+      - "Lattice-based cryptanalysis"
+      - "Grover/Shor algorithm applicability"
+      - "Side-channel analysis"
+
+  TMPL-SEC-PRO:
+    name: "Protocol Analysis"
+    category: security
+    extends: "TMPL-SEC"
+    phases: 7  # Inherits from TMPL-SEC
+    domain_match: "T.SEC.PRO.*"
+    specialization:
+      - "Protocol-specific vulnerability patterns"
+      - "State machine analysis"
+      - "Formal verification"
+
+  TMPL-SEC-APT:
+    name: "APT Campaign Analysis"
+    category: security
+    extends: "TMPL-SEC"
+    phases: 7  # Inherits from TMPL-SEC
+    domain_match: "T.SEC.OFF.APT"
+    specialization:
+      - "Multi-stage attack scenario modeling"
+      - "Campaign attribution"
+      - "Threat actor profiling"
+
+  TMPL-PENTEST:
+    name: "Penetration Testing"
+    category: security
+    version: "5.0+"
+    domain_match: "offensive_security, penetration_testing, red_team, bug_bounty"
+    extends: "TMPL-SEC"
+    phases: 6
+    phase_list:
+      1: { name: "RECON", time_pct: "10-15", focus: ["OSINT", "fingerprinting", "DNS enum", "port scan"] }
+      2: { name: "ENUM", time_pct: "20-25", focus: ["directory brute", "API mapping", "auth analysis"] }
+      3: { name: "VULN", time_pct: "15-20", focus: ["Nuclei", "Nessus", "business logic", "auth bypass"] }
+      4: { name: "EXPLOIT", time_pct: "25-30", priority: ["RCE", "Auth bypass", "SQLi", "SSRF", "Disclosure"] }
+      5: { name: "POST", time_pct: "10-15", focus: ["privesc", "lateral", "persistence", "data access"] }
+      6: { name: "REPORT", time_pct: "5-10", output: ["executive summary", "technical report", "JSON evidence"] }
+    performance_targets:
+      valid_submission_rate: 85
+      findings_per_hour: 1
+      parallel_efficiency: 80
+      max_session_hours: 24
+    engine_integration:
+      - "Engine 6: Dynamic agent factory"
+      - "Engine 7: Horizon extender"
+      - "Engine 8: Triage pipeline"
+
+  TMPL-DSN:
+    name: "Design Review"
+    category: design
+    version: "4.0.0"
+    domain_match: "T.DEV.*, E.ENG.*"
+    archetype_weight:
+      implementation: 40
+      theoretical: 25
+      adversarial: 20
+      strategic: 15
+    phases: 7
+    phase_list:
+      0: "Initialization"
+      1: "Architectural Analysis"
+      2: "Functional Correctness"
+      3: "Quality Attributes"
+      4: "Adversarial Challenge"
+      5: "Recommendation Synthesis"
+      6: "Final Report & Meta-Analysis"
+
+  TMPL-DSN-DIS:
+    name: "Distributed Systems Design"
+    category: design
+    extends: "TMPL-DSN"
+    phases: 7  # Inherits from TMPL-DSN
+    domain_match: "T.DEV.SYS.DIS"
+    specialization:
+      - "CAP theorem analysis"
+      - "Consensus protocols"
+      - "Partition tolerance"
+
+  TMPL-SCI:
+    name: "Scientific Research"
+    category: scientific
+    version: "4.0.0"
+    domain_match: "S.*"
+    archetype_weight:
+      theoretical: 40
+      adversarial: 20
+      implementation: 20
+      strategic: 20
+    phases: 7
+    phase_list:
+      0: "Initialization"
+      1: "Literature Review"
+      2: "Theoretical Development"
+      3: "Methodological Design"
+      4: "Critical Analysis"
+      5: "Synthesis & Contribution"
+      6: "Meta-Analysis"
+
+  TMPL-SCI-EXP:
+    name: "Experimental Design"
+    category: scientific
+    extends: "TMPL-SCI"
+    phases: 7  # Inherits from TMPL-SCI
+    domain_match: "S.*.EXP"
+    specialization:
+      - "Experimental protocol"
+      - "Statistical design"
+      - "Reproducibility"
+
+  TMPL-LEG:
+    name: "Legal Analysis"
+    category: legal
+    version: "4.0.0"
+    domain_match: "L.*"
+    archetype_weight:
+      theoretical: 25
+      adversarial: 25
+      implementation: 25
+      strategic: 25
+    phases: 7
+    phase_list:
+      0: "Initialization"
+      1: "Statutory & Regulatory Review"
+      2: "Case Law Analysis"
+      3: "Argument Construction"
+      4: "Counter-Argument Analysis"
+      5: "Recommendation & Synthesis"
+      6: "Meta-Analysis"
+
+  TMPL-BUS:
+    name: "Business Strategy"
+    category: business
+    version: "4.0.0"
+    domain_match: "B.*"
+    archetype_weight:
+      strategic: 35
+      theoretical: 25
+      adversarial: 20
+      implementation: 20
+    phases: 7
+    phase_list:
+      0: "Initialization"
+      1: "Situational Analysis"
+      2: "Option Generation"
+      3: "Option Evaluation"
+      4: "Stress Testing"
+      5: "Recommendation & Roadmap"
+      6: "Meta-Analysis"
+
+  TMPL-BUS-MA:
+    name: "M&A Due Diligence"
+    category: business
+    extends: "TMPL-BUS"
+    phases: 7  # Inherits from TMPL-BUS
+    domain_match: "B.FIN.*, B.STR.*"
+    specialization:
+      - "Financial analysis"
+      - "Risk assessment"
+      - "Synergy evaluation"
+
+  TMPL-DEV-ENHANCED:
+    name: "Development Workflow"
+    category: development
+    version: "4.1.0-beta"
+    source: "Anthropic Best Practices"
+    phases: 4
+    phase_list:
+      explore: { description: "Read relevant files without coding", duration_weight: 0.15, think_level: "implicit" }
+      plan: { description: "Design before implementing", duration_weight: 0.20, think_level: "think_hard+" }
+      code: { description: "Implement with verification", duration_weight: 0.50, checkpoints: true }
+      commit: { description: "Document and finalize", duration_weight: 0.15 }
+    anti_patterns:
+      - "Jumping to code without exploring"
+      - "Implementing without plan"
+      - "Skipping checkpoints"
+
+  TMPL-X-SECBUS:
+    name: "Security Business Case"
+    category: cross_domain
+    primary: "TMPL-SEC"
+    secondary: "TMPL-BUS"
+    phases: 9  # Combined SEC(7) + BUS strategic phases
+    purpose: "Security-business alignment analysis"
+    phase_list:
+      0: "Initialization"
+      1: "Security Assessment (from TMPL-SEC)"
+      2: "Business Context Analysis"
+      3: "Risk Quantification"
+      4: "Cost-Benefit Analysis"
+      5: "Threat-to-Revenue Mapping"
+      6: "Investment Prioritization"
+      7: "Stakeholder Communication"
+      8: "Meta-Analysis & Synthesis"
+
+  TMPL-X-LEGTECH:
+    name: "Legal Tech Review"
+    category: cross_domain
+    primary: "TMPL-LEG"
+    secondary: "TMPL-DSN"
+    phases: 9  # Combined LEG(7) + DSN technical phases
+    purpose: "Legal technology implementation review"
+    phase_list:
+      0: "Initialization"
+      1: "Regulatory Requirements"
+      2: "Technical Architecture Review"
+      3: "Compliance Mapping"
+      4: "Implementation Risk Assessment"
+      5: "Contract & Liability Analysis"
+      6: "Technical Feasibility"
+      7: "Recommendation & Roadmap"
+      8: "Meta-Analysis & Synthesis"
+
+  TMPL-X-SCIBUS:
+    name: "R&D Strategy"
+    category: cross_domain
+    primary: "TMPL-SCI"
+    secondary: "TMPL-BUS"
+    phases: 9  # Combined SCI(7) + BUS strategic phases
+    purpose: "Research-business strategy integration"
+    phase_list:
+      0: "Initialization"
+      1: "Literature & Market Review"
+      2: "Theoretical Foundation"
+      3: "Commercial Viability"
+      4: "IP & Competitive Analysis"
+      5: "Resource Planning"
+      6: "Timeline & Milestones"
+      7: "Go-to-Market Strategy"
+      8: "Meta-Analysis & Synthesis"
+
+# Presets
+presets:
+  security_audit:
+    template: "TMPL-SEC-AUTO"
+    engines: [1, 2, 3, 4, 8, 10, 14]
+    precision: "PL4"
+
+  code_review:
+    template: "TMPL-SEC"
+    engines: [1, 2, 3, 4, 10, 14]
+    precision: "PL3"
+
+  development:
+    template: "TMPL-DEV-ENHANCED"
+    engines: [1, 2, 3, 6, 11, 13]
+    precision: "PL2"
+
+  research:
+    template: "TMPL-SCI"
+    engines: [1, 2, 3, 5, 11, 13]
+    precision: "PL3"

@@ -1,0 +1,233 @@
+# USF 6.5.0 OMEGA - Orchestration & Compute Types
+# How subagents coordinate and execute
+
+version: "6.5.0"
+
+# Primary compute patterns for multi-agent execution
+compute_types:
+  sequential:
+    id: "SEQUENTIAL"
+    name: "Sequential"
+    short: "One after another"
+    description: "Agents execute in order, each receiving output from previous"
+    parallelism: 1
+    use_cases:
+      - "Dependent analysis steps"
+      - "Pipeline processing"
+      - "Refinement chains"
+    diagram: "A → B → C → D"
+
+  parallel:
+    id: "PARALLEL"
+    name: "Parallel"
+    short: "All at once"
+    description: "All agents execute simultaneously, results aggregated"
+    parallelism: "unlimited"
+    aggregation: "merge"
+    use_cases:
+      - "Independent subtasks"
+      - "Speed optimization"
+      - "Broad coverage"
+    diagram: "[A, B, C] → Aggregate"
+
+  swarm:
+    id: "SWARM"
+    name: "Swarm"
+    short: "Many on same problem"
+    description: "Multiple agents attack same problem from different angles"
+    parallelism: "3-10"
+    aggregation: "best_of"
+    diversity: "high"
+    use_cases:
+      - "Complex problem solving"
+      - "Exploration"
+      - "Brainstorming"
+    diagram: |
+      Problem → [A, B, C, D, E] → Best Solution
+
+  hivemind:
+    id: "HIVEMIND"
+    name: "Hive Mind"
+    short: "Vote on answers"
+    description: "Agents independently analyze, then vote on consensus"
+    parallelism: "3-5"
+    aggregation: "voting"
+    quorum: "majority"
+    use_cases:
+      - "High-stakes decisions"
+      - "Verification"
+      - "Reducing hallucination"
+    diagram: "[Agent1, Agent2, Agent3, Agent4, Agent5] → Vote → Winner"
+
+  pipeline:
+    id: "PIPELINE"
+    name: "Pipeline"
+    short: "Staged processing"
+    description: "Fixed stages with handoffs, like assembly line"
+    parallelism: "per-stage"
+    stages: true
+    use_cases:
+      - "ETL processing"
+      - "Multi-phase analysis"
+      - "Triage workflows"
+    diagram: |
+      [Stage 1] → [Stage 2] → [Stage 3] → [Stage 4]
+       Collect     Analyze     Verify      Report
+
+  supervisor_worker:
+    id: "SUPERVISOR_WORKER"
+    name: "Supervisor-Worker"
+    short: "Boss delegates to workers"
+    description: "Supervisor decomposes task, assigns to workers, aggregates"
+    parallelism: "dynamic"
+    hierarchy: true
+    use_cases:
+      - "Complex decomposition"
+      - "Dynamic task allocation"
+      - "Resource management"
+    diagram: "Supervisor → [W1, W2, W3] → Aggregator"
+
+  hybrid:
+    id: "HYBRID"
+    name: "Hybrid"
+    short: "Mixed patterns"
+    description: "Combines multiple patterns based on task structure"
+    parallelism: "adaptive"
+    patterns: ["sequential", "parallel", "hivemind"]
+    use_cases:
+      - "Complex multi-phase tasks"
+      - "Research with verification"
+      - "Real-world workflows"
+    diagram: "Setup → Parallel Analysis → Hivemind Verify → Synthesis"
+
+  map_reduce:
+    id: "MAP_REDUCE"
+    name: "Map-Reduce"
+    short: "Divide and conquer"
+    description: "Split problem, process in parallel, combine results"
+    parallelism: "map-phase unlimited"
+    aggregation: "reduce"
+    use_cases:
+      - "Large document analysis"
+      - "Codebase scanning"
+      - "Data processing"
+    diagram: "Input → Split → Map[A,B,C,D] → Reduce → Output"
+
+  tournament:
+    id: "TOURNAMENT"
+    name: "Tournament"
+    short: "Competitive elimination"
+    description: "Agents compete, winners advance, best solution emerges"
+    parallelism: "bracket"
+    rounds: "log2(n)"
+    use_cases:
+      - "Solution optimization"
+      - "Best-of-breed selection"
+      - "Adversarial testing"
+    diagram: "R1:[A vs B, C vs D] → R2:[A vs D] → Winner"
+
+  critic_loop:
+    id: "CRITIC_LOOP"
+    name: "Critic Loop"
+    short: "Generate → Critique → Refine"
+    description: "Generator produces, critic evaluates, iterate until good"
+    parallelism: 2
+    iterations: "until_threshold"
+    use_cases:
+      - "Content refinement"
+      - "Code improvement"
+      - "Quality optimization"
+    diagram: "Generator → Critic → Refine (loop until threshold)"
+
+  ensemble:
+    id: "ENSEMBLE"
+    name: "Ensemble"
+    short: "Multiple models, weighted"
+    description: "Different agent types contribute, weighted by expertise"
+    parallelism: "all"
+    aggregation: "weighted_average"
+    use_cases:
+      - "Prediction tasks"
+      - "Risk assessment"
+      - "Multi-perspective analysis"
+    diagram: "[ExpertA:0.4, ExpertB:0.35, ExpertC:0.25] → Weighted Combine → Result"
+
+# Presets for common orchestration needs
+orchestration_presets:
+  speed:
+    compute: "parallel"
+    description: "Maximum speed, independent tasks"
+
+  accuracy:
+    compute: "hivemind"
+    agents: 5
+    description: "Maximum accuracy via consensus"
+
+  exploration:
+    compute: "swarm"
+    agents: 7
+    description: "Broad exploration of solution space"
+
+  production:
+    compute: "pipeline"
+    stages: 4
+    description: "Reliable staged processing"
+
+  research:
+    compute: "hybrid"
+    phases:
+      - type: "parallel"
+        purpose: "gather"
+      - type: "hivemind"
+        purpose: "verify"
+      - type: "sequential"
+        purpose: "synthesize"
+    description: "Research workflow with verification"
+
+  security:
+    compute: "supervisor_worker"
+    workers: "dynamic"
+    triage: true
+    description: "Security analysis with triage"
+
+  optimization:
+    compute: "tournament"
+    candidates: 8
+    description: "Find best solution via competition"
+
+  refinement:
+    compute: "critic_loop"
+    max_iterations: 5
+    threshold: 0.9
+    description: "Iterative improvement"
+
+# Agent spawn limits by compute type
+spawn_limits:
+  sequential:
+    max_agents: 10
+    reason: "Linear time cost"
+
+  parallel:
+    max_agents: 20
+    reason: "Context aggregation cost"
+
+  swarm:
+    max_agents: 10
+    reason: "Diminishing returns"
+
+  hivemind:
+    max_agents: 7
+    reason: "Odd number for voting, diminishing returns above 7"
+
+  pipeline:
+    max_stages: 8
+    agents_per_stage: 3
+    reason: "Handoff overhead"
+
+  supervisor_worker:
+    max_workers: 15
+    reason: "Supervisor coordination limits"
+
+  tournament:
+    max_initial: 16
+    reason: "Bracket size practical limit"

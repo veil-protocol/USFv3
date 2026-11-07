@@ -174,6 +174,45 @@ def compose_panel(domain: str, size: int) -> list[dict]:
 
 
 # --------------------------------------------------------------------------
+# Template library — the 16 execution templates (full registry in
+# templates/TEMPLATE-LIBRARY.yaml; phase specs in TEMPLATE-DEFINITIONS.yaml).
+# A template supplies the domain-specific phase structure for ELABORATE.
+# --------------------------------------------------------------------------
+
+TEMPLATE_LIBRARY: dict[str, str] = {
+    "TMPL-SEC":          "Security Analysis (7-phase)",
+    "TMPL-SEC-AUTO":     "Autonomous Security / bug-bounty (AFP gates)",
+    "TMPL-SEC-PQC":      "Post-Quantum Cryptography Analysis",
+    "TMPL-SEC-PRO":      "Protocol Analysis",
+    "TMPL-SEC-APT":      "APT Campaign Analysis",
+    "TMPL-PENTEST":      "Penetration Testing",
+    "TMPL-DSN":          "Design",
+    "TMPL-DSN-DIS":      "Design — Distributed Systems",
+    "TMPL-SCI":          "Scientific Research",
+    "TMPL-SCI-EXP":      "Scientific — Experimental",
+    "TMPL-LEG":          "Legal Analysis",
+    "TMPL-BUS":          "Business Analysis",
+    "TMPL-BUS-MA":       "Business — M&A",
+    "TMPL-DEV-ENHANCED": "Software Development",
+    "TMPL-X-SECBUS":     "Cross-domain: Security × Business",
+    "TMPL-X-LEGTECH":    "Cross-domain: Legal × Tech",
+}
+
+# domain family → default template.
+_DOMAIN_TEMPLATE: dict[str, str] = {
+    "security": "TMPL-SEC-AUTO", "software": "TMPL-DEV-ENHANCED", "science": "TMPL-SCI",
+    "legal": "TMPL-LEG", "business": "TMPL-BUS", "finance": "TMPL-BUS",
+    "engineering": "TMPL-DSN",
+}
+
+
+def select_template(domain: str) -> str | None:
+    if domain.startswith("T.SEC.CRY"):
+        return "TMPL-SEC-PQC"
+    return _DOMAIN_TEMPLATE.get(domain_family(domain))
+
+
+# --------------------------------------------------------------------------
 # Verification chain legend (from the verification module; fallback inline).
 # --------------------------------------------------------------------------
 
@@ -223,6 +262,7 @@ class Plan:
     profile_desc: str
     model: str
     use_archetypes: bool
+    template: str | None
     verification_chains: list[str]
     expert_panel: list[dict]
     pipeline: list[dict]
@@ -237,7 +277,8 @@ def plan(task: str,
          domain: str | None = None,
          profile: str = "autonomous",
          model: str | None = None,
-         use_archetypes: bool = True) -> Plan:
+         use_archetypes: bool = True,
+         template: str | None = None) -> Plan:
     c = cal.calibrate(task, domain=domain)
     pl = precision if precision is not None else c.final_pl
     if precision is not None:
@@ -248,6 +289,7 @@ def plan(task: str,
     panel = compose_panel(c.domain, min(pl + 2, 7)) if use_archetypes else []
     chains = list(c.chains)
     model = model or auto_model(task, pl, c.domain)
+    tmpl = template or select_template(c.domain)
 
     return Plan(
         task=task, domain=c.domain,
@@ -256,7 +298,7 @@ def plan(task: str,
         compute_type=compute_type, compute_desc=COMPUTE_TYPES[compute_type]["desc"],
         aggregation=COMPUTE_TYPES[compute_type]["agg"],
         profile=profile, profile_desc=PROFILES[profile],
-        model=model, use_archetypes=use_archetypes,
+        model=model, use_archetypes=use_archetypes, template=tmpl,
         verification_chains=chains, expert_panel=panel,
         pipeline=build_pipeline(c.domain, panel, c.chains),
         total_agents=len(chains) + len(panel),
@@ -279,6 +321,8 @@ def render_human(p: Plan) -> str:
         f"  aggregation   : {p.aggregation}",
         f"  profile       : {p.profile}  ({p.profile_desc})",
         f"  model tier    : {p.model}",
+        f"  template      : {p.template or '(none — generic pipeline)'}"
+        + (f"  [{TEMPLATE_LIBRARY[p.template]}]" if p.template else ""),
         f"  archetypes    : {'on' if p.use_archetypes else 'off (chains only)'}",
         f"  total agents  : {p.total_agents}  ({len(p.verification_chains)} chains + {len(p.expert_panel)} experts)",
         bar, "  EXPERT PANEL (meta-prompted from archetypes × domain)",
@@ -326,6 +370,10 @@ def render_interface() -> str:
     for name, desc in DOMAINS.items():
         out.append(f"    o {name:<12} {desc}")
 
+    out += ["", "  TEMPLATE LIBRARY  (--template; auto-selected by domain; full specs in templates/)"]
+    for tid, desc in TEMPLATE_LIBRARY.items():
+        out.append(f"    o {tid:<18} {desc}")
+
     out += ["", "  EXPERT ARCHETYPES  (--no-archetypes to disable the panel)"]
     for aid, (nm, mode) in ARCHETYPES.items():
         out.append(f"    o {aid}  {nm:<16} {mode}")
@@ -352,6 +400,7 @@ def main(argv: list[str] | None = None) -> int:
     ap.add_argument("--profile", choices=list(PROFILES), default="autonomous", help="execution profile")
     ap.add_argument("--model", choices=list(MODEL_TIERS), help="model tier (auto by default)")
     ap.add_argument("--domain", help="override detected domain (taxonomy key, e.g. T.SEC)")
+    ap.add_argument("--template", choices=list(TEMPLATE_LIBRARY), help="override the execution template")
     ap.add_argument("--no-archetypes", action="store_true", help="run verification chains only, no panel")
     ap.add_argument("--json", action="store_true", help="emit machine-readable plan")
     ap.add_argument("--show-interface", action="store_true", help="show the full control panel")
@@ -364,7 +413,8 @@ def main(argv: list[str] | None = None) -> int:
         ap.error("a vision/task is required (or use --show-interface)")
 
     p = plan(args.task, compute=args.compute, precision=args.precision, domain=args.domain,
-             profile=args.profile, model=args.model, use_archetypes=not args.no_archetypes)
+             profile=args.profile, model=args.model, use_archetypes=not args.no_archetypes,
+             template=args.template)
     print(json.dumps(asdict(p), indent=2) if args.json else render_human(p))
     return 0
 

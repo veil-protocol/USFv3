@@ -1,0 +1,211 @@
+# USF 6.5.0 OMEGA - Execution and Behavioral Modes
+
+version: "6.5.0"
+
+# Execution modes control HOW tasks run
+execution_modes:
+  fast:
+    name: "Fast"
+    short: "Accelerated, max PL2"
+    max_precision: "PL2"
+    max_chains: 3
+    timeout_multiplier: 0.5
+    description: "Quick execution with reduced verification depth"
+
+  standard:
+    name: "Standard"
+    short: "Full execution"
+    max_precision: "PL4"
+    max_chains: 5
+    timeout_multiplier: 1.0
+    description: "Normal execution with all components active"
+    default: true
+
+  deep:
+    name: "Deep"
+    short: "Maximum depth, min PL4"
+    min_precision: "PL4"
+    max_chains: 9
+    timeout_multiplier: 3.0
+    external_review: true
+    description: "Maximum thoroughness with external expert review"
+
+  incremental:
+    name: "Incremental"
+    short: "Build on previous"
+    delta_only: true
+    cache_required: true
+    description: "Only process changes from previous run"
+
+  security:
+    name: "Security"
+    short: "All checks, parallel verify"
+    min_precision: "PL3"
+    parallel_verification: true
+    adversarial_testing: true
+    description: "Security-focused with parallel verification and adversarial tests"
+
+  auto:
+    name: "Auto"
+    short: "Intelligent selection"
+    description: "Automatically selects mode based on task triggers"
+
+# Behavioral modes control WHAT approach is used
+# RESERVED: Not currently wired into execution flow
+behavioral_modes:
+  # RESERVED: Not currently wired into execution flow
+  brainstorming:
+    name: "Brainstorming"
+    short: "Divergent thinking"
+    primary_chain: "ARC-TH"
+    divergence: "high"
+    criticism: "low"
+    description: "Creative exploration with minimal initial filtering"
+
+  # RESERVED: Not currently wired into execution flow
+  business_panel:
+    name: "Business Panel"
+    short: "Multi-expert strategic"
+    agents: ["CEO", "CFO", "CTO", "CMO", "Legal"]
+    consensus_required: true
+    description: "Multi-stakeholder business analysis with role-based perspectives"
+
+  deep_research:
+    name: "Deep Research"
+    short: "Thorough, cited"
+    primary_chain: "CHAIN-D"
+    citation_required: true
+    source_verification: true
+    description: "Academic-style research with citations and source verification"
+
+  # RESERVED: Not currently wired into execution flow
+  orchestration:
+    name: "Orchestration"
+    short: "Multi-tool coordination"
+    tool_parallelism: true
+    dependency_tracking: true
+    description: "Complex multi-tool task coordination"
+
+  token_efficiency:
+    name: "Token Efficiency"
+    short: "Concise, reduced panel"
+    max_agents: 2
+    summary_preference: true
+    deduplication: true
+    priority: 1
+    description: "Minimize token usage while maintaining quality"
+
+  task_management:
+    name: "Task Management"
+    short: "Structured planning"
+    todo_integration: true
+    milestone_tracking: true
+    description: "Structured task breakdown and progress tracking"
+
+  # RESERVED: Not currently wired into execution flow
+  introspection:
+    name: "Introspection"
+    short: "Meta-cognitive"
+    mal_integration: true
+    self_analysis: true
+    description: "Self-reflective analysis of reasoning processes"
+
+# Precision levels
+precision_levels:
+  PL1:
+    confidence: 0.80
+    chains: [2, 3]
+    max_tokens: 10000
+    method: "heuristic"
+    description: "Quick heuristic analysis"
+
+  PL2:
+    confidence: 0.90
+    chains: [3, 4]
+    max_tokens: 25000
+    method: "behavioral"
+    description: "Behavioral pattern analysis"
+
+  PL3:
+    confidence: 0.95
+    chains: [4, 5]
+    max_tokens: 50000
+    method: "formal"
+    description: "Formal methods with proofs"
+
+  PL4:
+    confidence: 0.99
+    chains: [5, 5]
+    max_tokens: 100000
+    method: "verified"
+    description: "Fully verified with multiple chains"
+
+  PL5:
+    confidence: 1.00
+    chains: [5, 5]
+    max_tokens: 200000
+    method: "it_secure"
+    external_review: true
+    description: "Information-theoretic security level"
+
+# Think levels (maps to precision + time)
+# RESERVED: Not currently wired into execution flow
+think_levels:
+  think:
+    precision: ["PL1", "PL2"]
+    time_multiplier: 1.0
+    confidence_range: [0.70, 0.85]
+
+  think_hard:
+    precision: ["PL2", "PL3"]
+    time_multiplier: 2.5
+    confidence_range: [0.80, 0.92]
+
+  think_harder:
+    precision: ["PL3", "PL4"]
+    time_multiplier: 5.0
+    confidence_range: [0.90, 0.97]
+
+  ultrathink:
+    precision: ["PL4", "PL5"]
+    time_multiplier: 11.5
+    confidence_range: [0.95, 1.00]
+
+  thinkdeep:
+    precision: ["PL3"]
+    time_multiplier: 6.5
+    focus: "edge_cases"
+    confidence_range: [0.88, 0.95]
+
+# Research depth levels
+# RESERVED: Not currently wired into execution flow
+research_depth:
+  QUICK:
+    hops: 1
+    timeout: "30s"
+    max_tokens: 5000
+    target_confidence: 0.70
+
+  STANDARD:
+    hops: [2, 3]
+    timeout: "2m"
+    max_tokens: 15000
+    target_confidence: 0.80
+
+  DEEP:
+    hops: [4, 6]
+    timeout: "5m"
+    max_tokens: 40000
+    target_confidence: 0.90
+
+  COMPREHENSIVE:
+    hops: [7, 10]
+    timeout: "15m"
+    max_tokens: 100000
+    target_confidence: 0.95
+
+  EXHAUSTIVE:
+    hops: "10+"
+    timeout: "30m+"
+    max_tokens: 200000
+    target_confidence: 0.99

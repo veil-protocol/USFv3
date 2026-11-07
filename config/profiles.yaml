@@ -1,0 +1,140 @@
+# USF 6.5.0 OMEGA - Session Profiles
+
+version: "6.5.0"
+
+# Session profiles control human-in-loop behavior
+profiles:
+  # RESERVED: Not currently wired into execution flow
+  interactive:
+    name: "Interactive"
+    short: "Human in loop, approval always"
+    approval_required: "always"
+    confirmation_prompts: true
+    step_by_step: true
+    description: "Full human oversight with approval at each step"
+
+  # RESERVED: Not currently wired into execution flow
+  supervised:
+    name: "Supervised"
+    short: "Approval for dangerous ops"
+    approval_required: "dangerous"
+    dangerous_operations:
+      - "file_delete"
+      - "git_push"
+      - "network_request_external"
+      - "credential_access"
+      - "system_modification"
+    description: "Human approval only for potentially destructive operations"
+    default: true
+
+  autonomous:
+    name: "Autonomous"
+    short: "Full autonomous, self-heal"
+    approval_required: "never"
+    self_healing: true
+    error_recovery: "automatic"
+    rollback_enabled: true
+    description: "Full autonomy with automatic error recovery"
+
+  # RESERVED: Not currently wired into execution flow
+  fire_and_forget:
+    name: "Fire and Forget"
+    short: "Zero blocking, async"
+    approval_required: "never"
+    blocking: false
+    async_delivery: true
+    notification_on_complete: true
+    description: "Launch task and receive results asynchronously"
+
+# Pre-configured profile bundles for common use cases
+bundles:
+  security_audit:
+    profile: "supervised"
+    template: "TMPL-SEC-AUTO"
+    execution: "security"
+    behavioral: "deep_research"
+    precision: "PL4"
+    engines_preset: "full"
+    description: "Security audit with supervised dangerous operations"
+
+  quick_research:
+    profile: "autonomous"
+    template: null
+    execution: "fast"
+    behavioral: "token_efficiency"
+    precision: "PL2"
+    research_depth: "STANDARD"
+    engines_preset: "speed"
+    description: "Fast autonomous research with minimal overhead"
+
+  thorough_analysis:
+    profile: "supervised"
+    template: null
+    execution: "deep"
+    behavioral: "deep_research"
+    precision: "PL4"
+    research_depth: "COMPREHENSIVE"
+    engines_preset: "full"
+    description: "Deep analysis with human oversight on key decisions"
+
+  background_task:
+    profile: "fire_and_forget"
+    template: null
+    execution: "standard"
+    behavioral: "orchestration"
+    precision: "PL3"
+    engines_preset: "standard"
+    description: "Background processing with async result delivery"
+
+  development:
+    profile: "supervised"
+    template: "TMPL-DEV-ENHANCED"
+    execution: "standard"
+    behavioral: "task_management"
+    precision: "PL3"
+    engines_preset: "standard"
+    description: "Development workflow with TDD and code review"
+
+  crypto_review:
+    profile: "interactive"
+    template: "TMPL-SEC-PQC"
+    execution: "deep"
+    behavioral: "introspection"
+    precision: "PL5"
+    engines_preset: "full"
+    description: "Cryptographic security review with full oversight"
+
+# Danger level classifications
+danger_levels:
+  safe:
+    operations:
+      - "read_file"
+      - "search"
+      - "analyze"
+      - "summarize"
+    approval: "never"
+
+  moderate:
+    operations:
+      - "write_file"
+      - "edit_file"
+      - "git_commit"
+      - "create_directory"
+    approval: "supervised"
+
+  dangerous:
+    operations:
+      - "delete_file"
+      - "git_push"
+      - "network_external"
+      - "execute_code"
+      - "install_package"
+    approval: "always_supervised"
+
+  critical:
+    operations:
+      - "credential_access"
+      - "system_modification"
+      - "production_deploy"
+      - "database_modify"
+    approval: "always_interactive"

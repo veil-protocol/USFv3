@@ -1,40 +1,52 @@
-# USF v3 — Template Gallery
+# USF v3 — Template Library
 
-The gallery is the **breadth receipts**: the same forge pipeline, pointed at
-different domains, each producing a finished product. Security is one exhibit,
-not the museum.
+A template supplies the domain-specific **phase structure** the forge runs during
+ELABORATE. The library is the **breadth receipts**: the same pipeline, pointed at
+any domain, each producing a finished product. Security is one exhibit, not the
+museum.
 
-Every template is the *same shape* — only the domain, panel, and phases change.
-That sameness is the point: it shows USF is a universal methodology.
+## Two representations
 
-## Template contract
+- **`TEMPLATE-LIBRARY.yaml`** — the registry: all 16 template IDs + the
+  domain→template routing the planner uses.
+- **`TEMPLATE-DEFINITIONS.yaml`** — the full specs: each template's `name`,
+  `extends`, phase list, and time budgets.
+- **`TMPL-*.md`** — worked, human-readable *exhibits* for the most-used templates
+  (prose phases + verification + codified-output shape).
 
-```
----
-id:              TMPL-<DOMAIN>-<VARIANT>
-domain_match:    [taxonomy keys, e.g. S.SCI.*]
-precision_floor: PLn            # minimum precision for this domain
-panel:           [archetype emphasis]
----
-# <title>
-Purpose · when to use
-## Phases        (the staged elaboration for this domain)
-## Verification  (which chains, what "done" means here)
-## Output        (codified-grammar shape of the finished product)
-```
+The planner auto-selects a template by domain (`usf.py` → `select_template`;
+override with `--template`). `usf.py --show-interface` lists the whole library.
 
-A template plugs into the planner: `usf.py` detects the domain → selects the
-template → the panel + phases below drive the ELABORATE and VERIFY stages.
+## The 16-template library
 
-## The gallery
-
-| Template | Domain | Product it forges |
+| Template | Domain | Forges |
 |---|---|---|
-| `TMPL-SEC-AUTONOMOUS` | security / vuln research | validated findings + benign PoC + report (the flagship exhibit) |
-| `TMPL-RESEARCH-SYNTHESIS` | science / research | a cited, adversarially-checked research report |
-| `TMPL-CODE-REVIEW` | software | a prioritized review with verified findings + fixes |
-| `TMPL-PRODUCT-SPEC` | business / product | a vision → complete, decision-ready specification |
-| `TMPL-DECISION-ANALYSIS` | cross-domain | a defensible recommendation from competing options |
+| `TMPL-SEC` | security | 7-phase security analysis |
+| `TMPL-SEC-AUTO` | security / bug-bounty | autonomous vuln research + AFP gates (full `.md` exhibit: `TMPL-SEC-AUTONOMOUS.md`) |
+| `TMPL-SEC-PQC` | crypto | post-quantum cryptography analysis (auto-selected for `T.SEC.CRY`) |
+| `TMPL-SEC-PRO` | security | protocol analysis |
+| `TMPL-SEC-APT` | security / CTI | APT campaign analysis |
+| `TMPL-PENTEST` | security | penetration-testing structure |
+| `TMPL-DSN` | engineering | system design |
+| `TMPL-DSN-DIS` | engineering | distributed-systems design |
+| `TMPL-SCI` | science | scientific research |
+| `TMPL-SCI-EXP` | science | experimental design |
+| `TMPL-LEG` | legal | legal analysis |
+| `TMPL-BUS` | business / finance | business analysis |
+| `TMPL-BUS-MA` | business | M&A due diligence |
+| `TMPL-DEV-ENHANCED` | software | software development |
+| `TMPL-X-SECBUS` | cross-domain | security × business |
+| `TMPL-X-LEGTECH` | cross-domain | legal × tech |
+
+## Worked `.md` exhibits (prose templates)
+
+Complementary human-readable exhibits that show the pipeline end-to-end in a
+domain: `TMPL-SEC-AUTONOMOUS` (the flagship), plus `TMPL-RESEARCH-SYNTHESIS`,
+`TMPL-CODE-REVIEW`, `TMPL-PRODUCT-SPEC`, `TMPL-DECISION-ANALYSIS`.
+
+## Adding templates
 
 New domains arrive via the **Vampirize** pipeline — ingest an external
-methodology, and it becomes a new template/module (capability-scope-gated).
+methodology and it becomes a new template/module entry, capability-scope-gated
+(see `SPEC/VAMPIRIZE-PROTOCOL.md`). Adding a template is a scope expansion →
+human Phase-1 approval.

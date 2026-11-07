@@ -1,0 +1,326 @@
+# USF 6.0 OMEGA - Engine Definitions
+# Version: 1.0.0
+# Source of truth for all USF engines
+
+version: 6.0-OMEGA
+total_engines: 23
+
+layers:
+  prometheus:
+    version: "5.0"
+    engines: [1, 2, 3, 4, 5]
+    description: "Foundation layer - core intelligence"
+
+  titan:
+    version: "5.1"
+    engines: [6, 7, 8]
+    description: "Performance layer - ARTEMIS-class"
+
+  forge:
+    version: "5.2"
+    engines: [9]
+    description: "Native integration layer"
+
+  omega:
+    version: "6.0"
+    engines: [10, 11, 12, 13, 14, 15]
+    description: "Superintelligence layer"
+
+  ascension:
+    version: "7.0"
+    engines: [16, 17, 18, 19, 20, 21, 22, 23]
+    description: "Meta-learning layer (theoretical)"
+
+engines:
+  # PROMETHEUS LAYER (5.0)
+  1:
+    name: "Oracle-Meta"
+    layer: prometheus
+    purpose: "Self-evolution via meta-analysis"
+    components:
+      - "Meta-Analysis Layer (MAL)"
+      - "Reflexion Memory"
+      - "Case-Based Learning"
+    agents:
+      - MAL-COVERAGE
+      - MAL-QUALITY
+      - MAL-EFFICIENCY
+      - MAL-NOVELTY
+      - MAL-CONVERGENCE
+      - MAL-ADVERSARIAL
+    invocation: "Automatic reflection on all tasks"
+
+  2:
+    name: "Domain Adaptation"
+    layer: prometheus
+    purpose: "Auto-detect domain and synthesize experts"
+    components:
+      - "Domain Detector"
+      - "Expert Generator"
+      - "Phase Adapter"
+    capabilities:
+      - "150+ specialized subagents"
+      - "Multi-Hop Research (5 depth levels)"
+    invocation: "Automatic on any problem statement"
+
+  3:
+    name: "Precision Calibration"
+    layer: prometheus
+    purpose: "Determine required analysis depth"
+    precision_levels:
+      PL1: { confidence: 80, tokens: 10000, chains: "2/3" }
+      PL2: { confidence: 90, tokens: 25000, chains: "3/4" }
+      PL3: { confidence: 95, tokens: 50000, chains: "4/5" }
+      PL4: { confidence: 99, tokens: 100000, chains: "5/5" }
+      PL5: { confidence: 100, tokens: 200000, chains: "5/5+ext" }
+    components:
+      - "Precision Calculator"
+      - "Progressive Deepening"
+      - "Uncertainty Quantifier"
+    invocation: "/usf precision=PL[1-5]"
+
+  4:
+    name: "Verification + Security"
+    layer: prometheus
+    purpose: "Multi-path verification and false confidence detection"
+    components:
+      - "N-Chain Verification"
+      - "Completeness Checker"
+      - "False Confidence Prevention"
+    chains: 8
+    trust_tiers: 6
+    invocation: "Automatic or /verify"
+
+  5:
+    name: "PROMETHEUS Orchestrator"
+    layer: prometheus
+    purpose: "Supervisor-Worker multi-agent orchestration"
+    components:
+      - "Supervisor Controller"
+      - "Agent Swarm Spawner"
+      - "Hive Mind Consensus"
+    limits:
+      max_concurrent: 15
+      max_total: 50
+    invocation: "/spawn agent=TYPE task='desc' or /hive models=list"
+
+  # TITAN LAYER (5.1)
+  6:
+    name: "Agent Factory"
+    layer: titan
+    purpose: "Dynamic agent spawning without taxonomy limits"
+    features:
+      - "Auto-generate agents for novel tasks"
+      - "Configuration-driven instantiation"
+    invocation: "/spawn agent_type=dynamic task='spec'"
+
+  7:
+    name: "Horizon Extender"
+    layer: titan
+    purpose: "24-hour sessions with checkpoint preservation"
+    specs:
+      session_duration: "24 hours"
+      block_duration: "30 minutes"
+      tokens_per_block: 50000
+      checkpoint_compression: "10:1"
+      cost_alert: "$50/session"
+      cost_hard_stop: "$200/session"
+    invocation: "Automatic on long-running tasks"
+
+  8:
+    name: "Triage Pipeline"
+    layer: titan
+    purpose: "85%+ valid finding rate via 4-stage filtering"
+    stages:
+      1: "Format & syntax validation"
+      2: "Semantic coherence check"
+      3: "Empirical verification"
+      4: "Adversarial stress test"
+    target_rate: 85
+    invocation: "Automatic or /triage"
+
+  # FORGE LAYER (5.2)
+  9:
+    name: "Prompt Forge"
+    layer: forge
+    purpose: "Direct system prompt injection via tweakcc"
+    features:
+      - "Native system prompt (zero token overhead)"
+      - "Mode-specific tool trimming (50-75% savings)"
+    tool_modes: ["research", "implement", "security", "planning", "minimal"]
+    status: "Deprecated - native prompts unreliable"
+    invocation: "Pre-compiled into Claude Code binary"
+
+  # OMEGA LAYER (6.0)
+  10:
+    name: "Parallel Verification"
+    layer: omega
+    purpose: "10x verification speed through parallelization"
+    architecture:
+      - "All 5 chains execute simultaneously"
+      - "Streaming consensus with early-exit"
+      - "Async checkpointing (0ms blocking)"
+    performance:
+      apex_time: 150  # seconds for PL4
+      omega_time: 15  # 10x improvement
+      avg_chains_needed: 3.2
+    cache:
+      code_ttl: "1hr"
+      research_ttl: "24hr"
+      security_ttl: "30min"
+      hit_target: 40
+    invocation: "/verify --parallel or automatic"
+
+  11:
+    name: "Token Efficiency"
+    layer: omega
+    purpose: "5x token reduction through intelligent compression"
+    components:
+      - "Context Tiering (3 tiers)"
+      - "Differential Context (base + delta)"
+      - "ReflexionMemory Vector Indexing"
+      - "Deduplication"
+    tiers:
+      essential: { tokens: 2000 }
+      on_demand: { tokens: "0-10K" }
+      reference: { tokens: "0-50K" }
+    performance:
+      before: "15K × 15 agents = 225K tokens"
+      after: "10K base + (2K × 15) = 40K tokens"
+      improvement: "5.6x"
+    invocation: "/compress or automatic"
+
+  12:
+    name: "Full Autonomy"
+    layer: omega
+    purpose: "Zero human interaction required"
+    blocking_points_eliminated:
+      - "Permission requests → Pre-authorized allowlist"
+      - "Ambiguity → Generate all interpretations"
+      - "Error confirmation → Self-healing with retry"
+      - "Progress checkpoints → Continuous async streaming"
+      - "Resource approval → Pre-allocated envelope"
+      - "Security confirmations → Pre-authorized profile"
+      - "Output validation → Self-validation with auto-proceed"
+    failure_taxonomy:
+      transient: "exponential backoff (max 5 retries)"
+      recoverable: "analyze error, modify approach (max 3)"
+      degradable: "continue without component"
+      fatal: "checkpoint & halt"
+    invocation: "/fire-and-forget task='desc' or automatic"
+
+  13:
+    name: "Infinite Context"
+    layer: omega
+    purpose: "Unlimited effective context with zero information loss"
+    architecture:
+      primary_storage: "Full context in persistent store"
+      active_window: "200K token working context"
+      retrieval: "Semantic search for context injection"
+    memory_layers:
+      L1_immediate: { tokens: 200000, fidelity: "full", latency: "instant" }
+      L2_session: { tokens: 2000000, fidelity: "paragraph", latency: "5ms" }
+      L3_project: { tokens: "unlimited", fidelity: "section", latency: "50ms" }
+      L4_global: { tokens: "unlimited", fidelity: "key learnings", latency: "100ms" }
+    invocation: "/context-retrieve query='...' or automatic"
+
+  14:
+    name: "Deep Validity"
+    layer: omega
+    purpose: "95%+ valid finding rate through multi-stage validation"
+    stages:
+      1: { name: "Syntactic", reduction: 20 }
+      2: { name: "Semantic", reduction: 30 }
+      3: { name: "Empirical", reduction: 40 }
+      4: { name: "Adversarial", reduction: 50 }
+    cumulative:
+      baseline: 85
+      after_stage_3: 95
+      after_stage_4: 97.5
+    freshness_ttl:
+      security: 7
+      api_docs: 30
+      language: 180
+      fundamentals: 365
+    invocation: "/validate or /validate-deep"
+
+  15:
+    name: "Distributed Context"
+    layer: omega
+    purpose: "Break 200K token ceiling through multi-model distribution"
+    architecture:
+      coordinator: "Central orchestrator (primary model)"
+      specialists: "Domain-specific analysis instances"
+      synthesizer: "Combine specialist outputs"
+    invocation: "/distribute-analysis or automatic for large tasks"
+
+  # ASCENSION LAYER (7.0) - Theoretical
+  16:
+    name: "Proactive Intelligence"
+    layer: ascension
+    purpose: "Transform from reactive to proactive collaborator"
+    status: "theoretical"
+
+  17:
+    name: "Meta-Learning Core"
+    layer: ascension
+    purpose: "Learn how to learn patterns faster"
+    status: "theoretical"
+
+  18:
+    name: "Causal Reasoning"
+    layer: ascension
+    purpose: "Understand WHY, not just WHAT correlates"
+    status: "theoretical"
+
+  19:
+    name: "Creative Synthesis"
+    layer: ascension
+    purpose: "Generate novel solutions beyond training data"
+    status: "theoretical"
+
+  20:
+    name: "Swarm Intelligence"
+    layer: ascension
+    purpose: "Multi-agent emergent behavior"
+    status: "theoretical"
+
+  21:
+    name: "Sandbox Execution"
+    layer: ascension
+    purpose: "Safe experimentation with rollback"
+    status: "theoretical"
+
+  22:
+    name: "Temporal Planning"
+    layer: ascension
+    purpose: "Time-aware scheduling and optimization"
+    status: "theoretical"
+
+  23:
+    name: "Meta-Cognition"
+    layer: ascension
+    purpose: "Self-awareness and recursive self-improvement"
+    status: "theoretical"
+
+# Presets for common configurations
+presets:
+  minimal:
+    engines: [1, 2, 3, 4]
+    description: "Core PROMETHEUS only"
+
+  standard:
+    engines: [1, 2, 3, 4, 5, 6, 7, 8]
+    description: "PROMETHEUS + TITAN"
+
+  full_omega:
+    engines: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]
+    description: "All implemented engines (1-15)"
+
+  security_focused:
+    engines: [1, 2, 3, 4, 8, 10, 14]
+    description: "Security-optimized subset"
+
+  research_focused:
+    engines: [1, 2, 3, 5, 11, 13]
+    description: "Research-optimized subset"

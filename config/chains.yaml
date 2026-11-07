@@ -1,0 +1,237 @@
+# USF 6.5.0 OMEGA - Verification Chains
+
+version: "6.5.0"
+
+# 9 verification chains (A-I)
+chains:
+  A:
+    id: "Chain-A"
+    name: "Static Analysis"
+    short: "Code review, patterns"
+    methods:
+      - "code_review"
+      - "pattern_matching"
+      - "ast_analysis"
+      - "dependency_check"
+    tools:
+      - "semgrep"
+      - "bandit"
+      - "eslint"
+      - "clippy"
+    use_cases:
+      - "security_audit"
+      - "code_quality"
+      - "vulnerability_scan"
+    description: "Static code analysis without execution"
+
+  B:
+    id: "Chain-B"
+    name: "Dynamic Analysis"
+    short: "Testing, fuzzing"
+    methods:
+      - "unit_testing"
+      - "integration_testing"
+      - "fuzzing"
+      - "runtime_analysis"
+    tools:
+      - "pytest"
+      - "jest"
+      - "afl"
+      - "libfuzzer"
+    use_cases:
+      - "bug_finding"
+      - "edge_cases"
+      - "crash_detection"
+    description: "Runtime testing and fuzzing"
+
+  C:
+    id: "Chain-C"
+    name: "Formal Methods"
+    short: "Theorem proving, SAT/SMT"
+    methods:
+      - "theorem_proving"
+      - "model_checking"
+      - "sat_solving"
+      - "smt_solving"
+    tools:
+      - "coq"
+      - "lean"
+      - "z3"
+      - "spin"
+    use_cases:
+      - "cryptographic_proofs"
+      - "protocol_verification"
+      - "correctness_proofs"
+    description: "Mathematical verification and proofs"
+
+  D:
+    id: "Chain-D"
+    name: "Empirical Testing"
+    short: "Field test, benchmarks"
+    methods:
+      - "field_testing"
+      - "benchmarking"
+      - "performance_profiling"
+      - "load_testing"
+    tools:
+      - "criterion"
+      - "hyperfine"
+      - "k6"
+      - "locust"
+    use_cases:
+      - "performance_validation"
+      - "scalability_testing"
+      - "real_world_validation"
+    description: "Real-world testing and benchmarks"
+
+  E:
+    id: "Chain-E"
+    name: "Expert Review"
+    short: "Peer review, panel"
+    methods:
+      - "peer_review"
+      - "expert_panel"
+      - "red_team"
+      - "external_audit"
+    agents:
+      - "domain_expert"
+      - "security_specialist"
+      - "architecture_reviewer"
+    use_cases:
+      - "design_review"
+      - "security_audit"
+      - "architecture_validation"
+    description: "Human/agent expert review and consensus"
+
+  F:
+    id: "Chain-F"
+    name: "TDD"
+    short: "Test-first iteration"
+    methods:
+      - "test_first"
+      - "red_green_refactor"
+      - "specification_by_example"
+    workflow:
+      - "write_failing_test"
+      - "implement_minimum"
+      - "verify_pass"
+      - "refactor"
+    use_cases:
+      - "new_feature"
+      - "bug_fix"
+      - "refactoring"
+    description: "Test-driven development cycle"
+
+  G:
+    id: "Chain-G"
+    name: "Code Review"
+    short: "Severity assessment"
+    methods:
+      - "line_by_line_review"
+      - "severity_classification"
+      - "suggestion_generation"
+    severity_levels:
+      - "critical"
+      - "high"
+      - "medium"
+      - "low"
+      - "info"
+    use_cases:
+      - "pr_review"
+      - "security_review"
+      - "quality_gate"
+    description: "Structured code review with severity ratings"
+
+  H:
+    id: "Chain-H"
+    name: "Debug Verification"
+    short: "Root cause analysis"
+    methods:
+      - "root_cause_analysis"
+      - "bisection"
+      - "trace_analysis"
+      - "state_inspection"
+    workflow:
+      - "reproduce_issue"
+      - "isolate_cause"
+      - "verify_fix"
+      - "regression_test"
+    use_cases:
+      - "bug_investigation"
+      - "crash_analysis"
+      - "regression_debugging"
+    description: "Systematic debugging and root cause identification"
+
+  I:
+    id: "Chain-I"
+    name: "Runtime Environment"
+    short: "Target context testing"
+    methods:
+      - "environment_validation"
+      - "integration_testing"
+      - "deployment_testing"
+      - "compatibility_check"
+    contexts:
+      - "development"
+      - "staging"
+      - "production"
+      - "ci_cd"
+    use_cases:
+      - "deployment_validation"
+      - "environment_parity"
+      - "compatibility_testing"
+    description: "Testing in target runtime environment"
+
+# Chain combinations for common scenarios
+combinations:
+  security_full:
+    chains: ["A", "B", "C", "E", "G"]
+    description: "Complete security verification"
+
+  development:
+    chains: ["A", "B", "F", "G"]
+    description: "Development workflow chains"
+
+  formal_verification:
+    chains: ["A", "C", "E"]
+    description: "Formal methods focus"
+
+  performance:
+    chains: ["B", "D", "I"]
+    description: "Performance validation"
+
+  quick_check:
+    chains: ["A", "G"]
+    description: "Fast static analysis"
+
+  production_ready:
+    chains: ["A", "B", "D", "G", "I"]
+    description: "Production deployment validation"
+
+# Minimum chains by precision level
+precision_chain_requirements:
+  PL1:
+    min_chains: 2
+    required: []
+    recommended: ["A"]
+
+  PL2:
+    min_chains: 3
+    required: ["A"]
+    recommended: ["A", "G"]
+
+  PL3:
+    min_chains: 4
+    required: ["A", "G"]
+    recommended: ["A", "B", "E", "G"]
+
+  PL4:
+    min_chains: 5
+    required: ["A", "C", "E"]
+    recommended: ["A", "B", "C", "E", "G"]
+
+  PL5:
+    min_chains: 5
+    required: ["A", "C", "E"]
+    external_required: true
+    recommended: ["A", "B", "C", "D", "E"]

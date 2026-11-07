@@ -1,0 +1,393 @@
+# USF 6.0 OMEGA - Invocation Schema
+# Version: 2.0.0 - Added compute types and full orchestration
+# Master configuration for USF invocation
+
+version: 6.0-OMEGA
+
+# All 11 invocation settings (added compute_type)
+settings:
+  0_compute_type:
+    name: "Compute Type"
+    description: "Agent orchestration pattern - how agents coordinate"
+    options:
+      - id: "sequential"
+        name: "SEQUENTIAL"
+        description: "One agent after another"
+        parallelism: 1
+        use_case: "Simple linear tasks"
+      - id: "parallel"
+        name: "PARALLEL"
+        description: "All agents at once"
+        parallelism: "unlimited"
+        use_case: "Independent subtasks"
+      - id: "swarm"
+        name: "SWARM"
+        description: "Many agents on same problem"
+        parallelism: "3-10"
+        use_case: "Complex exploration"
+      - id: "hivemind"
+        name: "HIVEMIND"
+        description: "Vote on answers with consensus"
+        parallelism: "3-5"
+        voting: "majority"
+        use_case: "High-confidence decisions"
+        recommended: true
+      - id: "pipeline"
+        name: "PIPELINE"
+        description: "Staged processing, output→input"
+        parallelism: "per-stage"
+        use_case: "Sequential transformations"
+      - id: "supervisor_worker"
+        name: "SUPERVISOR_WORKER"
+        description: "Boss delegates to workers"
+        parallelism: "dynamic"
+        use_case: "Hierarchical decomposition"
+      - id: "hybrid"
+        name: "HYBRID"
+        description: "Mixed patterns, adaptive"
+        parallelism: "adaptive"
+        use_case: "Complex multi-phase tasks"
+      - id: "map_reduce"
+        name: "MAP_REDUCE"
+        description: "Divide, process, combine"
+        parallelism: "map-phase"
+        use_case: "Large-scale analysis"
+      - id: "tournament"
+        name: "TOURNAMENT"
+        description: "Competitive elimination"
+        parallelism: "bracket"
+        use_case: "Best-solution selection"
+      - id: "critic_loop"
+        name: "CRITIC_LOOP"
+        description: "Generate → Critique → Refine"
+        parallelism: 2
+        iterations: "until-converge"
+        use_case: "Quality refinement"
+      - id: "ensemble"
+        name: "ENSEMBLE"
+        description: "Multiple models, weighted vote"
+        parallelism: "model-count"
+        models: ["claude", "gpt4", "gemini"]
+        use_case: "Maximum reliability"
+    default: "hivemind"
+  1_version:
+    name: "USF Version"
+    description: "Which USF version/layer stack to use"
+    options:
+      - id: "5.0"
+        name: "PROMETHEUS"
+        engines: [1, 2, 3, 4, 5]
+        description: "Foundation layer only"
+      - id: "5.1"
+        name: "TITAN"
+        engines: [1, 2, 3, 4, 5, 6, 7, 8]
+        description: "PROMETHEUS + Performance layer"
+      - id: "5.2"
+        name: "FORGE"
+        engines: [1, 2, 3, 4, 5, 6, 7, 8, 9]
+        description: "TITAN + Native integration"
+      - id: "5.3"
+        name: "APEX"
+        engines: [1, 2, 3, 4, 5, 6, 7, 8, 9]
+        description: "FORGE hardened"
+      - id: "6.0"
+        name: "OMEGA"
+        engines: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]
+        description: "Full superintelligence stack"
+        recommended: true
+      - id: "7.0"
+        name: "ASCENSION"
+        engines: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23]
+        description: "Meta-learning (theoretical)"
+        status: "not_implemented"
+    default: "6.0"
+
+  2_engines:
+    name: "Active Engines"
+    description: "Which engines to enable (see USF-ENGINES.yaml)"
+    type: "multi_select"
+    source: "USF-ENGINES.yaml"
+    presets:
+      minimal: [1, 2, 3, 4]
+      standard: [1, 2, 3, 4, 5, 6, 7, 8]
+      full_omega: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]
+      security: [1, 2, 3, 4, 8, 10, 14]
+      research: [1, 2, 3, 5, 11, 13]
+    default: "full_omega"
+
+  3_template:
+    name: "Execution Template"
+    description: "Task structure and phases (see USF-TEMPLATES.yaml)"
+    type: "single_select"
+    source: "USF-TEMPLATES.yaml"
+    default: "TMPL-SEC"
+
+  4_mode:
+    name: "Execution Mode"
+    description: "How the framework executes"
+    options:
+      - id: "fast"
+        description: "Accelerated, max PL2, 3 chains"
+        max_precision: "PL2"
+        chains: 3
+      - id: "standard"
+        description: "Full execution, all components"
+        default: true
+      - id: "deep"
+        description: "Maximum depth, min PL4, external review"
+        min_precision: "PL4"
+        chains: 5
+      - id: "incremental"
+        description: "Build on previous, delta only"
+        requires: "prior_context"
+      - id: "security"
+        description: "All checks, parallel verify"
+        engines_required: [4, 10, 14]
+      - id: "auto"
+        description: "Intelligent selection from task characteristics"
+    default: "standard"
+
+  5_behavioral:
+    name: "Behavioral Mode"
+    description: "How the framework behaves during execution"
+    options:
+      - id: "brainstorming"
+        description: "Divergent thinking, many options"
+        archetype: "ARC-TH"
+      - id: "business_panel"
+        description: "Multi-expert strategic"
+        archetypes: ["ARC-ST", "ARC-TH", "ARC-AD", "ARC-IM"]
+      - id: "deep_research"
+        description: "Thorough, cited, comprehensive"
+        chain_primary: "CHAIN-D"
+      - id: "orchestration"
+        description: "Multi-tool coordination"
+        archetype: "ARC-IM"
+      - id: "token_efficiency"
+        description: "Concise output, reduced panel"
+        priority: 1
+        token_reduction: "30-50%"
+      - id: "task_management"
+        description: "Structured planning, todos"
+        archetype: "ARC-ST"
+      - id: "introspection"
+        description: "Meta-cognitive, MAL integration"
+    default: null
+    conflicts:
+      - ["token_efficiency", "deep_research"]
+      - ["brainstorming", "task_management"]
+
+  6_precision:
+    name: "Precision Level"
+    description: "Required confidence and rigor"
+    options:
+      - id: "PL1"
+        confidence: 80
+        chains: "2/3"
+        tokens: 10000
+        methods: ["heuristic"]
+        time_factor: 0.2
+      - id: "PL2"
+        confidence: 90
+        chains: "3/4"
+        tokens: 25000
+        methods: ["behavioral"]
+        time_factor: 0.5
+      - id: "PL3"
+        confidence: 95
+        chains: "4/5"
+        tokens: 50000
+        methods: ["formal", "proof_sketches"]
+        time_factor: 0.8
+        recommended: true
+      - id: "PL4"
+        confidence: 99
+        chains: "5/5"
+        tokens: 100000
+        methods: ["theorem_prover", "exhaustive"]
+        time_factor: 1.5
+      - id: "PL5"
+        confidence: 100
+        chains: "5/5+external"
+        tokens: 200000
+        methods: ["information_theoretic", "shannon"]
+        time_factor: 3.0
+    default: "PL3"
+    domain_overrides:
+      "T.SEC.CRY.*": { minimum: "PL3" }
+      "E.ENG.AER": { minimum: "PL4", mandatory: true }
+      "E.ENG.NUC": { minimum: "PL4", mandatory: true }
+
+  7_think:
+    name: "Think Level"
+    description: "Computational effort escalation"
+    options:
+      - id: "think"
+        precision_range: ["PL1", "PL2"]
+        confidence: "70-85%"
+        time_factor: 1
+      - id: "think_hard"
+        precision_range: ["PL2", "PL3"]
+        confidence: "80-92%"
+        time_factor: "2-3x"
+      - id: "think_harder"
+        precision_range: ["PL3", "PL4"]
+        confidence: "90-97%"
+        time_factor: "4-6x"
+      - id: "ultrathink"
+        precision_range: ["PL4", "PL5"]
+        confidence: "95-100%"
+        time_factor: "8-15x"
+      - id: "thinkdeep"
+        precision_range: ["PL3"]
+        confidence: "92-98%"
+        time_factor: "5-8x"
+        focus: "edge_cases"
+    default: "think_hard"
+
+  8_depth:
+    name: "Research Depth"
+    description: "Multi-hop research configuration"
+    options:
+      - id: "QUICK"
+        hops: 1
+        time: "30s"
+        tokens: 5000
+        confidence_target: 70
+      - id: "STANDARD"
+        hops: "2-3"
+        time: "2m"
+        tokens: 15000
+        confidence_target: 80
+      - id: "DEEP"
+        hops: "4-6"
+        time: "5m"
+        tokens: 40000
+        confidence_target: 90
+      - id: "COMPREHENSIVE"
+        hops: "7-10"
+        time: "15m"
+        tokens: 100000
+        confidence_target: 95
+      - id: "EXHAUSTIVE"
+        hops: "10+"
+        time: "30m+"
+        tokens: 200000
+        confidence_target: 99
+    default: "STANDARD"
+
+  9_chains:
+    name: "Verification Chains"
+    description: "Which verification methods to use"
+    type: "multi_select"
+    options:
+      - id: "A"
+        name: "Static Analysis"
+        methods: ["code review", "patterns", "type checking"]
+      - id: "B"
+        name: "Dynamic Analysis"
+        methods: ["testing", "fuzzing", "simulation"]
+      - id: "C"
+        name: "Formal Methods"
+        methods: ["theorem proving", "model checking", "SAT/SMT"]
+      - id: "D"
+        name: "Empirical Testing"
+        methods: ["field testing", "benchmarks", "red team"]
+      - id: "E"
+        name: "Expert Review"
+        methods: ["peer review", "domain experts", "panel consensus"]
+      - id: "F"
+        name: "TDD"
+        methods: ["test-first", "iteration"]
+      - id: "G"
+        name: "Code Review"
+        methods: ["severity assessment", "structured review"]
+      - id: "H"
+        name: "Debug Verification"
+        methods: ["root cause analysis"]
+      - id: "I"
+        name: "Runtime Environment"
+        methods: ["target context testing"]
+    default: ["A", "B", "D", "E"]
+    by_precision:
+      PL1: { required: 2, from: ["A", "B", "E"] }
+      PL2: { required: 3, from: ["A", "B", "D", "E"] }
+      PL3: { required: 4, from: ["A", "B", "C", "D", "E"] }
+      PL4: { required: 5, from: ["A", "B", "C", "D", "E"] }
+      PL5: { required: 5, from: ["A", "B", "C", "D", "E"], plus: "external" }
+
+  10_profile:
+    name: "Session Profile"
+    description: "Autonomy and interaction level"
+    options:
+      - id: "interactive"
+        autonomous: false
+        approval: "always"
+        description: "Human in the loop for all decisions"
+      - id: "supervised"
+        autonomous: "partial"
+        approval: "dangerous_ops_only"
+        description: "Approval for dangerous operations"
+      - id: "autonomous"
+        autonomous: true
+        approval: "never"
+        self_heal: true
+        description: "Full autonomous execution"
+      - id: "fire_and_forget"
+        autonomous: true
+        blocking_points: 0
+        delivery: "async"
+        description: "Zero blocking, async delivery"
+    default: "supervised"
+
+# Quick invoke presets
+presets:
+  security_audit:
+    version: "6.0"
+    engines: "security"
+    template: "TMPL-SEC-AUTO"
+    mode: "security"
+    precision: "PL4"
+    think: "think_harder"
+    depth: "COMPREHENSIVE"
+    chains: ["A", "B", "D", "E", "G"]
+    profile: "autonomous"
+
+  code_fix:
+    version: "6.0"
+    engines: "standard"
+    template: "TMPL-DEV-ENHANCED"
+    mode: "standard"
+    precision: "PL3"
+    think: "think_hard"
+    depth: "STANDARD"
+    chains: ["A", "F", "G"]
+    profile: "supervised"
+
+  quick_research:
+    version: "6.0"
+    engines: "research"
+    template: "TMPL-SCI"
+    mode: "fast"
+    precision: "PL2"
+    think: "think"
+    depth: "QUICK"
+    chains: ["D", "E"]
+    profile: "interactive"
+
+  deep_analysis:
+    version: "6.0"
+    engines: "full_omega"
+    template: "TMPL-SEC"
+    mode: "deep"
+    precision: "PL5"
+    think: "ultrathink"
+    depth: "EXHAUSTIVE"
+    chains: ["A", "B", "C", "D", "E"]
+    profile: "autonomous"
+
+# Slash commands
+commands:
+  - "/usf" # Initialize with settings
+  - "/usf preset=security_audit"
+  - "/usf engines=1,2,3,4 template=TMPL-SEC precision=PL3"
