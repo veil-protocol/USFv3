@@ -80,6 +80,7 @@ DOMAIN_DEFAULTS: dict[str, tuple[int, int]] = {
     "L.LAW.REG": (3, 3),   # regulatory / compliance
     "L.LAW": (3, 2),       # legal (general)
     "F.FIN": (3, 2),       # finance
+    "E.ENG": (3, 2),       # engineering (general)
     "T.DEV.SEC": (4, 3),   # secure development
     "T.DEV": (2, 1),       # software development
     "T.AI": (3, 2),        # AI / ML
@@ -88,22 +89,53 @@ DOMAIN_DEFAULTS: dict[str, tuple[int, int]] = {
     "default": (3, 1),
 }
 
-# Free-text -> taxonomy key. First match wins; order = most specific first.
+# Free-text -> taxonomy key. First match wins; order = MOST SPECIFIC FIRST, then
+# domain-general. Widened across EVERY domain (not just security) so the forge
+# classifies and calibrates work in any field — security is one domain of many.
 _DOMAIN_SIGNALS: list[tuple[str, str]] = [
-    (r"\b(crypto\w*|cipher|encrypt\w*|key\s*exchange|zero[-\s]?knowledge|post[-\s]?quantum)\b", "T.SEC.CRY"),
-    (r"\b(aerospace|avionics|flight\s*control|spacecraft)\b", "E.ENG.AER"),
+    # --- specific sub-domains (must precede their general parent) ---
+    (r"\b(crypto\w*|cipher|encrypt\w*|decrypt\w*|key\s*exchange|zero[-\s]?knowledge|"
+     r"post[-\s]?quantum|\btls\b|\bssl\b|\bpki\b|certificate|signature\s*scheme|\bhmac\b|"
+     r"\bkdf\b|diffie|\brsa\b|\baes\b|ecdsa|ml[-\s]?kem|ml[-\s]?dsa|handshake)\b", "T.SEC.CRY"),
+    (r"\b(aerospace|avionics|flight\s*control|spacecraft|satellite)\b", "E.ENG.AER"),
     (r"\b(nuclear|reactor)\b", "E.ENG.NUC"),
-    (r"\b(surgery|surgical|anesthesi|life[-\s]?support|clinical\s*trial)\b", "M.MED.SURG"),
-    (r"\b(vulnerab|exploit|pentest|penetration\s*test|bug\s*bounty|attack\s*surface|malware|red\s*team)\b", "T.SEC"),
-    (r"\b(secure\s*coding|authz|authn|auth(entication|orization)|sandbox|sanitiz)\b", "T.DEV.SEC"),
-    (r"\b(diagnos|patient|disease|dosage|medical)\b", "M.MED"),
-    (r"\b(gdpr|hipaa|sec\s*filing|compliance|regulat|sox|pci[-\s]?dss)\b", "L.LAW.REG"),
-    (r"\b(contract|liabilit|statute|litigation|legal)\b", "L.LAW"),
-    (r"\b(trading|portfolio|valuation|audit|accounting|ledger|invoice)\b", "F.FIN"),
-    (r"\b(model|neural|llm|training|inference|embedding|rag)\b", "T.AI"),
-    (r"\b(refactor|implement|api|function|module|deploy|code|script|library)\b", "T.DEV"),
-    (r"\b(hypothesis|experiment|literature|proof|theorem|empirical|dataset)\b", "S.SCI"),
-    (r"\b(roadmap|go[-\s]?to[-\s]?market|pricing|strategy|revenue|customer)\b", "B.BIZ"),
+    (r"\b(surgery|surgical|anesthesi|life[-\s]?support|clinical\s*trial|operating\s*room)\b", "M.MED.SURG"),
+    (r"\b(gdpr|hipaa|ccpa|sec\s*filing|compliance|regulat\w*|\bsox\b|pci[-\s]?dss|"
+     r"fedramp|iso\s*27001|\bnist\b|data\s*protection|privacy\s*policy)\b", "L.LAW.REG"),
+    (r"\b(secure\s*coding|appsec|owasp|\bxss\b|sqli|sql\s*inject\w*|\bcsrf\b|\bssrf\b|"
+     r"authz|authn|auth(entication|orization)|\boauth\b|\bjwt\b|session\s*management|"
+     r"input\s*validation|sandbox|sanitiz\w*|secret\w*\s*management|\brbac\b)\b", "T.DEV.SEC"),
+    # --- general domains ---
+    (r"\b(security|vulnerab\w*|weakness(es)?|\bcve\b|exploit\w*|pentest|penetration\s*test|"
+     r"bug\s*bounty|attack\s*surface|malware|ransomware|phishing|red\s*team|blue\s*team|"
+     r"threat\s*\w+|harden\w*|backdoor|intrusion|breach|siem|security\s*operations|"
+     r"detection\s*(engineering|rule|logic|content)|\bmitre\b|\bttp\b|\bapt\b|\bc2\b|"
+     r"lateral\s*movement|privilege\s*escalation|"
+     r"(security|network|auth|cryptographic)\s*protocol|"
+     r"protocol\s*(analysis|audit|review|hardening|weakness))\b", "T.SEC"),
+    (r"\b(diagnos\w*|patient|disease|dosage|medical|treatment|therap\w*|symptom|"
+     r"prognosis|clinical|\bdrug\b|health(care)?)\b", "M.MED"),
+    (r"\b(contract|liabilit\w*|statute|litigation|legal|\bnda\b|agreement|terms\s*of\s*service|"
+     r"intellectual\s*property|\bpatent\b|trademark|clause|counsel|jurisdiction|dispute)\b", "L.LAW"),
+    (r"\b(trading|portfolio|valuation|\baudit\b|accounting|ledger|invoice|revenue|forecast|"
+     r"budget|investment|hedge|derivative|equit\w*|\bbond\b|cash\s*flow|\bdcf\b|\broi\b|"
+     r"financial|pricing\s*model)\b", "F.FIN"),
+    (r"\b(machine\s*learning|\bml\b|deep\s*learning|neural|\bllm\b|transformer|"
+     r"fine[-\s]?tun\w*|inference|embedding|\brag\b|training\s*data|classifier|"
+     r"reinforcement\s*learning|prompt\s*engineering)\b", "T.AI"),
+    (r"\b(hypothesis|experiment\w*|literature\s*review|\bproof\b|theorem|empirical|"
+     r"research|study|survey|synthesis|meta[-\s]?analysis|statistic\w*|reproduc\w*|"
+     r"peer\s*review|methodology)\b", "S.SCI"),
+    (r"\b(engineering|system\s*design|distributed\s*system\w*|mechanical|electrical|"
+     r"circuit|\bcad\b|tolerance|stress\s*analysis|material\w*|manufacturing|reliability|"
+     r"control\s*system|embedded\s*system|hardware\s*design|thermal|structural)\b", "E.ENG"),
+    (r"\b(roadmap|go[-\s]?to[-\s]?market|\bgtm\b|pricing|strategy|revenue|customer|market\w*|"
+     r"competitor|product\s*(spec|launch|feature)|\bokr\b|\bkpi\b|stakeholder|operations|"
+     r"growth|churn|positioning|business\s*case|m&a|merger|acquisition|due\s*diligence)\b", "B.BIZ"),
+    (r"\b(refactor|implement|\bapi\b|function|module|deploy\w*|code|script|library|build|"
+     r"debug|\btest(ing|s)?\b|database|migration|microservice\w*|container|kubernetes|docker|"
+     r"ci[-/\s]?cd|backend|frontend|algorithm|data\s*structure|compiler|concurrency|"
+     r"latency|performance)\b", "T.DEV"),
 ]
 
 
